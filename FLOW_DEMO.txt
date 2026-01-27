@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""
+Demo script để hiển thị flow hoàn toàn:
+1. Extract Trang 1
+2. Hỏi user trả lời
+3. User submit
+4. Auto-fill + click Tiếp
+5. Auto-fill trang 2 + click Gửi
+"""
+
+print("""
+╔════════════════════════════════════════════════════════════════╗
+║                    GOOGLE FORM AUTO FILLER v3                  ║
+║                      (Multi-Page Support)                       ║
+╚════════════════════════════════════════════════════════════════╝
+
+📋 FLOW HOÀN TOÀN:
+
+[1] EXTRACTION PHASE (Tự động)
+    ✓ Load form từ URL
+    ✓ Tìm tất cả câu hỏi trên TRANG 1 HIỆN TẠI
+    ✓ Hiển thị: "📌 Phần 1 / 2"
+    ✓ Hiển thị: "1. hello em ơi" (multiple choice)
+    ✓ Hiển thị: "2. bạn tên là gì" (multiple choice)
+    ✓ Detect nút "Tiếp" có tồn tại
+    ✓ DỪNG (không click "Tiếp")
+
+[2] USER INTERACTION (Manual)
+    ✓ UI hiển thị tất cả câu hỏi Trang 1
+    ✓ User chọn đáp án cho mỗi câu
+    ✓ User click button "Gửi Responses (5 lần)"
+
+[3] SUBMISSION PHASE (Tự động)
+    ✓ Tạo 5 responses tự động
+    
+    Lần 1:
+      • Load form
+      • _fill_form() chạy:
+        - Điền Q1: "h" (từ answers[0])
+        - Điền Q2: "name1" (từ answers[1])
+        - Tìm nút "Tiếp" → Click
+        - Trang 2 load
+        - Điền Q3: "ok" (từ answers[2])
+        - Tìm nút "Tiếp" → Không có → Exit loop
+      • _submit_form() chạy:
+        - Scroll to bottom
+        - Click nút "Gửi" (purple button)
+        - ✓ Response 1 submitted
+    
+    Lần 2-5:
+      • Lặp lại tương tự với answers khác nhau
+      • ✓ Response 2-5 submitted
+
+╔════════════════════════════════════════════════════════════════╗
+
+🔑 KEY CHANGES:
+
+1. EXTRACTION (gui_app_v3.py - GoogleFormWorker.run()):
+   ❌ OLD: Auto-click "Tiếp" during extraction
+   ✅ NEW: Only extract current page, detect "Tiếp", then STOP
+   
+   Code change:
+   - Removed the while loop that auto-clicks "Tiếp"
+   - Now stops after extracting first page with "Tiếp" button
+   - User must submit to continue
+
+2. SUBMISSION (_fill_form()):
+   ✅ Already handles multi-page form correctly
+   - Fills all answers for current page
+   - Detects "Tiếp" button
+   - Clicks it
+   - Waits for next page to load
+   - Loops until no "Tiếp" button
+   - Exits when ready for submit
+
+3. GUI UI:
+   ✅ Shows all questions from extracted page
+   ✅ User selects answers in UI
+   ✅ User clicks "Gửi" button to submit
+   ✅ Backend auto-fills and navigates pages
+
+╔════════════════════════════════════════════════════════════════╗
+
+📊 FORM STRUCTURE (from test):
+
+  Phần 1 / 2
+    1. hello em ơi (multiple_choice)
+    2. bạn tên là gì (multiple_choice)
+  
+  Phần 2 / 2
+    3. fuck u (multiple_choice)
+
+✓ Code auto-detects "Phần X / Y" and marks as page_title
+✓ GUI displays page titles differently (tím, bold)
+✓ When user submits, _fill_form() auto-clicks "Tiếp"
+
+╚════════════════════════════════════════════════════════════════╝
+""")

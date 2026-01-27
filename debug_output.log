@@ -1,0 +1,184 @@
+2026-01-25 15:41:26,287 - INFO - ====== WebDriver manager ======
+2026-01-25 15:41:26,391 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-25 15:41:26,399 - DEBUG - Starting new HTTPS connection (1): googlechromelabs.github.io:443
+2026-01-25 15:41:26,717 - DEBUG - https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14972
+2026-01-25 15:41:26,736 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-25 15:41:26,739 - DEBUG - Starting new HTTPS connection (1): googlechromelabs.github.io:443
+2026-01-25 15:41:27,149 - DEBUG - https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14972
+2026-01-25 15:41:27,183 - INFO - Driver [/Users/2apple_mgn_63_ram16/.wdm/drivers/chromedriver/mac64/144.0.7559.96/chromedriver-mac-arm64/chromedriver] found in cache
+2026-01-25 15:41:27,183 - DEBUG - Skipping Selenium Manager; path to chrome driver specified in Service class: /Users/2apple_mgn_63_ram16/.wdm/drivers/chromedriver/mac64/144.0.7559.96/chromedriver-mac-arm64/chromedriver
+2026-01-25 15:41:27,187 - DEBUG - Started executable: `/Users/2apple_mgn_63_ram16/.wdm/drivers/chromedriver/mac64/144.0.7559.96/chromedriver-mac-arm64/chromedriver` in a child process with pid: 52328 using 0 to output -3
+2026-01-25 15:41:27,562 - DEBUG - POST http://localhost:60171/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--start-maximized', '--no-sandbox', '--disable-dev-shm-usage']}}}}
+2026-01-25 15:41:27,563 - DEBUG - Starting new HTTP connection (1): localhost:60171
+2026-01-25 15:41:28,565 - DEBUG - http://localhost:60171 "POST /session HTTP/1.1" 200 0
+2026-01-25 15:41:28,565 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"144.0.7559.97","chrome":{"chromedriverVersion":"144.0.7559.96 (d7b80622cfab91c265741194e7942eefd2d21811-refs/branch-heads/7559@{#3667})","userDataDir":"/var/folders/v2/3mz853kx7fj10l_mp89fx76c0000gn/T/org.chromium.Chromium.scoped_dir.IP5BIQ"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:60184"},"goog:processID":52329,"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"mac","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"1ff267001636d3969bee9d1fc6f2a909"}} | headers=HTTPHeaderDict({'Content-Length': '923', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:28,565 - DEBUG - Finished Request
+2026-01-25 15:41:28,566 - INFO - Opening form: https://docs.google.com/forms/d/1Py98mcOo55G_gqUqALn-2YwEdr2vNXaL_7t74uPYRzA/edit?hl=vi
+2026-01-25 15:41:28,566 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/url {'url': 'https://docs.google.com/forms/d/1Py98mcOo55G_gqUqALn-2YwEdr2vNXaL_7t74uPYRzA/edit?hl=vi'}
+2026-01-25 15:41:29,526 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/url HTTP/1.1" 200 0
+2026-01-25 15:41:29,526 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:29,526 - DEBUG - Finished Request
+2026-01-25 15:41:37,532 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/elements {'using': 'css selector', 'value': '.Qr7Oae'}
+2026-01-25 15:41:37,547 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,547 - DEBUG - Remote response: status=200 | data={"value":[{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105"},{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106"},{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107"},{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108"}]} | headers=HTTPHeaderDict({'Content-Length': '483', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,547 - DEBUG - Finished Request
+2026-01-25 15:41:37,547 - INFO - Found 4 Qr7Oae elements
+2026-01-25 15:41:37,547 - INFO - 
+============================================================
+2026-01-25 15:41:37,547 - INFO - ELEMENT 0
+2026-01-25 15:41:37,548 - INFO - ============================================================
+2026-01-25 15:41:37,548 - INFO - Strategy 1: contenteditable textboxes
+2026-01-25 15:41:37,548 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements {'using': 'xpath', 'value': ".//div[@role='textbox'][@contenteditable='true']"}
+2026-01-25 15:41:37,558 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,558 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,558 - DEBUG - Finished Request
+2026-01-25 15:41:37,558 - INFO -   Found 0 contenteditable textboxes
+2026-01-25 15:41:37,558 - INFO - Strategy 2: any role='textbox'
+2026-01-25 15:41:37,558 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements {'using': 'xpath', 'value': ".//div[@role='textbox']"}
+2026-01-25 15:41:37,568 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,568 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,568 - DEBUG - Finished Request
+2026-01-25 15:41:37,568 - INFO -   Found 0 textboxes
+2026-01-25 15:41:37,568 - INFO - Strategy 3: hj99tb class
+2026-01-25 15:41:37,568 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements {'using': 'xpath', 'value': ".//div[contains(@class, 'hj99tb')]"}
+2026-01-25 15:41:37,576 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,576 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,576 - DEBUG - Finished Request
+2026-01-25 15:41:37,576 - INFO -   Found 0 hj99tb divs
+2026-01-25 15:41:37,576 - INFO - Strategy 4: M7eMe spans
+2026-01-25 15:41:37,576 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements {'using': 'css selector', 'value': '.M7eMe'}
+2026-01-25 15:41:37,583 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,584 - DEBUG - Remote response: status=200 | data={"value":[{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.109"}]} | headers=HTTPHeaderDict({'Content-Length': '129', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,584 - DEBUG - Finished Request
+2026-01-25 15:41:37,584 - INFO -   Found 1 M7eMe spans
+2026-01-25 15:41:37,584 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.109/text {}
+2026-01-25 15:41:37,591 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.109/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,591 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,591 - DEBUG - Finished Request
+2026-01-25 15:41:37,591 - INFO -     SP 0: text=''
+2026-01-25 15:41:37,591 - INFO - Strategy 5: Get all text from element
+2026-01-25 15:41:37,591 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/text {}
+2026-01-25 15:41:37,598 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.105/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,598 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,598 - DEBUG - Finished Request
+2026-01-25 15:41:37,598 - INFO -   Full element text: ''
+2026-01-25 15:41:37,598 - INFO - 
+============================================================
+2026-01-25 15:41:37,598 - INFO - ELEMENT 1
+2026-01-25 15:41:37,598 - INFO - ============================================================
+2026-01-25 15:41:37,598 - INFO - Strategy 1: contenteditable textboxes
+2026-01-25 15:41:37,598 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements {'using': 'xpath', 'value': ".//div[@role='textbox'][@contenteditable='true']"}
+2026-01-25 15:41:37,602 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,602 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,602 - DEBUG - Finished Request
+2026-01-25 15:41:37,602 - INFO -   Found 0 contenteditable textboxes
+2026-01-25 15:41:37,602 - INFO - Strategy 2: any role='textbox'
+2026-01-25 15:41:37,602 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements {'using': 'xpath', 'value': ".//div[@role='textbox']"}
+2026-01-25 15:41:37,606 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,606 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,607 - DEBUG - Finished Request
+2026-01-25 15:41:37,607 - INFO -   Found 0 textboxes
+2026-01-25 15:41:37,607 - INFO - Strategy 3: hj99tb class
+2026-01-25 15:41:37,607 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements {'using': 'xpath', 'value': ".//div[contains(@class, 'hj99tb')]"}
+2026-01-25 15:41:37,611 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,611 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,611 - DEBUG - Finished Request
+2026-01-25 15:41:37,611 - INFO -   Found 0 hj99tb divs
+2026-01-25 15:41:37,611 - INFO - Strategy 4: M7eMe spans
+2026-01-25 15:41:37,611 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements {'using': 'css selector', 'value': '.M7eMe'}
+2026-01-25 15:41:37,615 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,615 - DEBUG - Remote response: status=200 | data={"value":[{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.110"}]} | headers=HTTPHeaderDict({'Content-Length': '129', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,615 - DEBUG - Finished Request
+2026-01-25 15:41:37,615 - INFO -   Found 1 M7eMe spans
+2026-01-25 15:41:37,615 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.110/text {}
+2026-01-25 15:41:37,619 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.110/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,619 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,619 - DEBUG - Finished Request
+2026-01-25 15:41:37,619 - INFO -     SP 0: text=''
+2026-01-25 15:41:37,619 - INFO - Strategy 5: Get all text from element
+2026-01-25 15:41:37,619 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/text {}
+2026-01-25 15:41:37,624 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.106/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,624 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,624 - DEBUG - Finished Request
+2026-01-25 15:41:37,624 - INFO -   Full element text: ''
+2026-01-25 15:41:37,624 - INFO - 
+============================================================
+2026-01-25 15:41:37,624 - INFO - ELEMENT 2
+2026-01-25 15:41:37,624 - INFO - ============================================================
+2026-01-25 15:41:37,624 - INFO - Strategy 1: contenteditable textboxes
+2026-01-25 15:41:37,624 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements {'using': 'xpath', 'value': ".//div[@role='textbox'][@contenteditable='true']"}
+2026-01-25 15:41:37,628 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,628 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,628 - DEBUG - Finished Request
+2026-01-25 15:41:37,628 - INFO -   Found 0 contenteditable textboxes
+2026-01-25 15:41:37,628 - INFO - Strategy 2: any role='textbox'
+2026-01-25 15:41:37,628 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements {'using': 'xpath', 'value': ".//div[@role='textbox']"}
+2026-01-25 15:41:37,632 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,632 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,632 - DEBUG - Finished Request
+2026-01-25 15:41:37,632 - INFO -   Found 0 textboxes
+2026-01-25 15:41:37,632 - INFO - Strategy 3: hj99tb class
+2026-01-25 15:41:37,632 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements {'using': 'xpath', 'value': ".//div[contains(@class, 'hj99tb')]"}
+2026-01-25 15:41:37,636 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,637 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,637 - DEBUG - Finished Request
+2026-01-25 15:41:37,637 - INFO -   Found 0 hj99tb divs
+2026-01-25 15:41:37,637 - INFO - Strategy 4: M7eMe spans
+2026-01-25 15:41:37,637 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements {'using': 'css selector', 'value': '.M7eMe'}
+2026-01-25 15:41:37,640 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,640 - DEBUG - Remote response: status=200 | data={"value":[{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.111"}]} | headers=HTTPHeaderDict({'Content-Length': '129', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,640 - DEBUG - Finished Request
+2026-01-25 15:41:37,640 - INFO -   Found 1 M7eMe spans
+2026-01-25 15:41:37,640 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.111/text {}
+2026-01-25 15:41:37,644 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.111/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,644 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,644 - DEBUG - Finished Request
+2026-01-25 15:41:37,644 - INFO -     SP 0: text=''
+2026-01-25 15:41:37,644 - INFO - Strategy 5: Get all text from element
+2026-01-25 15:41:37,644 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/text {}
+2026-01-25 15:41:37,649 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.107/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,649 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,649 - DEBUG - Finished Request
+2026-01-25 15:41:37,649 - INFO -   Full element text: ''
+2026-01-25 15:41:37,649 - INFO - 
+============================================================
+2026-01-25 15:41:37,649 - INFO - ELEMENT 3
+2026-01-25 15:41:37,649 - INFO - ============================================================
+2026-01-25 15:41:37,649 - INFO - Strategy 1: contenteditable textboxes
+2026-01-25 15:41:37,649 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements {'using': 'xpath', 'value': ".//div[@role='textbox'][@contenteditable='true']"}
+2026-01-25 15:41:37,653 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,653 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,653 - DEBUG - Finished Request
+2026-01-25 15:41:37,653 - INFO -   Found 0 contenteditable textboxes
+2026-01-25 15:41:37,653 - INFO - Strategy 2: any role='textbox'
+2026-01-25 15:41:37,653 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements {'using': 'xpath', 'value': ".//div[@role='textbox']"}
+2026-01-25 15:41:37,656 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,656 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,656 - DEBUG - Finished Request
+2026-01-25 15:41:37,656 - INFO -   Found 0 textboxes
+2026-01-25 15:41:37,656 - INFO - Strategy 3: hj99tb class
+2026-01-25 15:41:37,657 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements {'using': 'xpath', 'value': ".//div[contains(@class, 'hj99tb')]"}
+2026-01-25 15:41:37,661 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,661 - DEBUG - Remote response: status=200 | data={"value":[]} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,661 - DEBUG - Finished Request
+2026-01-25 15:41:37,661 - INFO -   Found 0 hj99tb divs
+2026-01-25 15:41:37,661 - INFO - Strategy 4: M7eMe spans
+2026-01-25 15:41:37,661 - DEBUG - POST http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements {'using': 'css selector', 'value': '.M7eMe'}
+2026-01-25 15:41:37,665 - DEBUG - http://localhost:60171 "POST /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/elements HTTP/1.1" 200 0
+2026-01-25 15:41:37,665 - DEBUG - Remote response: status=200 | data={"value":[{"element-6066-11e4-a52e-4f735466cecf":"f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.112"}]} | headers=HTTPHeaderDict({'Content-Length': '129', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,665 - DEBUG - Finished Request
+2026-01-25 15:41:37,665 - INFO -   Found 1 M7eMe spans
+2026-01-25 15:41:37,665 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.112/text {}
+2026-01-25 15:41:37,668 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.112/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,668 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,668 - DEBUG - Finished Request
+2026-01-25 15:41:37,668 - INFO -     SP 0: text=''
+2026-01-25 15:41:37,668 - INFO - Strategy 5: Get all text from element
+2026-01-25 15:41:37,668 - DEBUG - GET http://localhost:60171/session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/text {}
+2026-01-25 15:41:37,673 - DEBUG - http://localhost:60171 "GET /session/1ff267001636d3969bee9d1fc6f2a909/element/f.EFA6AE4C5D59E7E8EDD75A972F83411A.d.8DE72BAF78FC81CCA15F574DD6B35EFE.e.108/text HTTP/1.1" 200 0
+2026-01-25 15:41:37,673 - DEBUG - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2026-01-25 15:41:37,673 - DEBUG - Finished Request
+2026-01-25 15:41:37,673 - INFO -   Full element text: ''
+2026-01-25 15:41:37,673 - INFO - 
+✓ Test complete - Chrome window still open
+Press Enter to close...

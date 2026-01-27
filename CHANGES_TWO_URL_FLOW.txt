@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+"""
+📋 SUMMARY OF CHANGES - Two-Step URL Flow
+"""
+
+summary = """
+╔════════════════════════════════════════════════════════════════╗
+║          NEW FLOW: Editor Link → ViewForm Link                 ║
+╚════════════════════════════════════════════════════════════════╝
+
+🔄 BƯỚC 1: LẤYQUESTIONS (Editor Link)
+─────────────────────────────────────
+
+✅ UI yêu cầu: "Nhập link EDITOR"
+   Input: self.url_input
+   Validation: Phải chứa "/edit"
+   
+   Ví dụ: https://docs.google.com/forms/d/FORM_ID/edit
+
+✅ Code extract:
+   • Load form từ editor link
+   • Editor link → tất cả câu hỏi trên 1 trang
+   • Không phải multi-page → đơn giản
+   • Tránh vấn đề validate câu hỏi bắt buộc
+   
+✅ Khi extract xong:
+   • Enable input "Link ViewForm"
+   • Hiển thị tất cả câu hỏi
+   • Cho user chọn đáp án
+
+╔════════════════════════════════════════════════════════════════╗
+
+🔄 BƯỚC 2: GỬI RESPONSES (ViewForm Link)
+──────────────────────────────────────────
+
+✅ UI yêu cầu: "Nhập link VIEWFORM"
+   Input: self.viewform_url_input
+   Enabled: Chỉ khi extraction xong
+   Validation: Phải chứa "/viewform"
+   
+   Ví dụ: https://docs.google.com/forms/d/e/FORM_ID/viewform
+
+✅ Code submit:
+   • self.form_url = viewform_url (NOT editor URL)
+   • _fill_form() + _submit_form() chạy trên viewform
+   • Nếu form multi-page → _fill_form() handle
+     - Click "Tiếp" tự động
+     - Fill trang 2, 3, ...
+     - Click "Gửi" ở trang cuối
+
+╔════════════════════════════════════════════════════════════════╗
+
+📝 CODE CHANGES:
+
+1. createInputTab():
+   ❌ OLD: 1 input cho "Google Form URL"
+   ✅ NEW: 
+      - Input 1: "Link Editor" (enabled by default)
+      - Input 2: "Link ViewForm" (disabled initially)
+
+2. loadFormInfo():
+   ❌ OLD: Nhận 1 URL, không clear
+   ✅ NEW:
+      - Validate link editor (/edit)
+      - Extract từ editor link
+      - Enable viewform input khi xong
+      - Simplified extraction (no multi-page loop)
+
+3. startSubmission():
+   ❌ OLD: Dùng self.form_url từ editor
+   ✅ NEW:
+      - Validate link viewform (/viewform)
+      - self.form_url = viewform_url_input (KHÔNG dùng editor)
+      - Pass viewform URL tới SubmissionWorker
+
+4. GoogleFormWorker.run():
+   ✅ NEW simplified extraction:
+      - Detect editor link
+      - Extract all questions from 1 page
+      - Return immediately (NO multi-page loop)
+      - Much faster, no validation issues
+
+╔════════════════════════════════════════════════════════════════╗
+
+💡 LỢI THÍCH:
+
+✅ Extract from editor link:
+   • Tất cả câu hỏi, options, descriptions trên 1 trang
+   • Không phải click "Tiếp" nhiều lần
+   • Không gặp vấn đề validation bắt buộc
+   • Nhanh hơn (1 page vs 2-3 pages)
+   
+✅ Submit to viewform link:
+   • Viewform là link form bình thường
+   • User có thể submit responses bình thường
+   • Form có thể multi-page, _fill_form() handle
+   • Clear separation: extraction vs submission
+
+✅ User experience:
+   • Step 1 clear: "Lấy câu hỏi từ editor"
+   • Step 2 clear: "Gửi responses từ viewform"
+   • Validation messages rõ ràng
+   • Cannot accidentally use wrong URL
+
+╚════════════════════════════════════════════════════════════════╝
+"""
+
+print(summary)

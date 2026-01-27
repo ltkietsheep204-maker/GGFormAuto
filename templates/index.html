@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Form Auto Filler Web</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 500px; margin: auto; padding: 30px; border: 1px solid #ccc; border-radius: 8px; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; }
+        .flash { color: green; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Google Form Auto Filler (Web)</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+        <form method="post">
+            <label>Link Google Form:</label>
+            <input type="text" name="form_url" required placeholder="Dán link Google Form...">
+            <label>Số lượng response muốn gửi:</label>
+            <input type="number" name="response_count" min="1" value="1" required>
+            <button type="submit">Bắt đầu tự động</button>
+        </form>
+    </div>
+</body>
+</html>

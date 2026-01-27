@@ -1,0 +1,110 @@
+51 INFO: PyInstaller: 6.18.0, contrib hooks: 2026.0
+51 INFO: Python: 3.14.2
+60 INFO: Platform: macOS-26.2-arm64-arm-64bit-Mach-O
+60 INFO: Python environment: /Library/Frameworks/Python.framework/Versions/3.14
+60 INFO: wrote /Users/2apple_mgn_63_ram16/Desktop/GGform/Google Form Auto Filler.spec
+63 INFO: Module search paths (PYTHONPATH):
+['/Users/2apple_mgn_63_ram16/Desktop/GGform',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python314.zip',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/lib-dynload',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages',
+ '/Users/2apple_mgn_63_ram16/Desktop/GGform']
+164 INFO: checking Analysis
+165 INFO: Building Analysis because Analysis-00.toc is non existent
+165 INFO: Looking for Python shared library...
+171 INFO: Using Python shared library: /Library/Frameworks/Python.framework/Versions/3.14/Python
+171 INFO: Running Analysis Analysis-00.toc
+171 INFO: Target bytecode optimization level: 0
+171 INFO: Initializing module dependency graph...
+171 INFO: Initializing module graph hook caches...
+182 INFO: Analyzing modules for base_library.zip ...
+1063 INFO: Processing standard module hook 'hook-encodings.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+2204 INFO: Processing standard module hook 'hook-difflib.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+2213 INFO: Processing standard module hook 'hook-heapq.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+2288 INFO: Processing standard module hook 'hook-pickle.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+3368 INFO: Caching module dependency graph...
+3384 INFO: Analyzing /Users/2apple_mgn_63_ram16/Desktop/GGform/gui_app_v3.py
+4379 INFO: Processing standard module hook 'hook-PyQt5.QtWidgets.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+4506 INFO: Processing standard module hook 'hook-PyQt5.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+5206 INFO: Processing standard module hook 'hook-PyQt5.QtCore.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6032 INFO: Processing standard module hook 'hook-PyQt5.QtGui.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6155 INFO: Processing standard module hook 'hook-selenium.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+6262 INFO: Processing standard module hook 'hook-certifi.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+6279 INFO: Processing standard module hook 'hook-urllib3.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+6413 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+6414 INFO: SetuptoolsInfo: initializing cached setuptools info...
+6641 INFO: Setuptools: 'backports' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.backports'!
+6648 INFO: Processing standard module hook 'hook-setuptools.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6697 INFO: Processing standard module hook 'hook-platform.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6730 INFO: Processing standard module hook 'hook-xml.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6759 INFO: Processing standard module hook 'hook-sysconfig.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6769 INFO: Processing standard module hook 'hook-_osx_support.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6772 INFO: Processing standard module hook 'hook-_ctypes.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6776 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+6799 INFO: Processing pre-safe-import-module hook 'hook-jaraco.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+6799 INFO: Setuptools: 'jaraco' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco'!
+6807 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+6807 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+6908 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+7095 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+7724 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+7854 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+7855 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+7981 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8004 INFO: Processing standard module hook 'hook-importlib_metadata.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+8019 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8233 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8233 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+8645 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8645 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+9639 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+9830 INFO: Processing standard module hook 'hook-charset_normalizer.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+10053 INFO: Processing module hooks (post-graph stage)...
+10057 WARNING: Hidden import "sip" not found!
+10790 INFO: Performing binary vs. data reclassification (131 entries)
+10842 INFO: Looking for ctypes DLLs
+10862 INFO: Analyzing run-time hooks ...
+10864 INFO: Including run-time hook 'pyi_rth_pyqt5.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+10865 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_find_module_path'
+10866 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+10868 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+10869 INFO: Including run-time hook 'pyi_rth_inspect.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+10871 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+10872 INFO: Including run-time hook 'pyi_rth_setuptools.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+10879 INFO: Creating base_library.zip...
+10890 INFO: Looking for dynamic libraries
+11153 INFO: Warnings written to /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/warn-Google Form Auto Filler.txt
+11172 INFO: Graph cross-reference written to /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/xref-Google Form Auto Filler.html
+11283 INFO: checking PYZ
+11283 INFO: Building PYZ because PYZ-00.toc is non existent
+11283 INFO: Building PYZ (ZlibArchive) /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/PYZ-00.pyz
+11746 INFO: Building PYZ (ZlibArchive) /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/PYZ-00.pyz completed successfully.
+11753 INFO: EXE target arch: arm64
+11753 INFO: Code signing identity: None
+11755 INFO: checking PKG
+11755 INFO: Building PKG because PKG-00.toc is non existent
+11755 INFO: Building PKG (CArchive) Google Form Auto Filler.pkg
+11795 INFO: Building PKG (CArchive) Google Form Auto Filler.pkg completed successfully.
+11796 INFO: Bootloader /Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/bootloader/Darwin-64bit/runw
+11796 INFO: checking EXE
+11796 INFO: Building EXE because EXE-00.toc is non existent
+11796 INFO: Building EXE from EXE-00.toc
+11796 INFO: Copying bootloader EXE to /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/Google Form Auto Filler
+11801 INFO: Converting EXE to target arch (arm64)
+11815 INFO: Removing signature(s) from EXE
+11828 INFO: Modifying Mach-O image UUID(s) in EXE
+11832 INFO: Appending PKG archive to EXE
+11834 INFO: Fixing EXE headers for code signing
+11839 INFO: Re-signing the EXE
+11860 INFO: Building EXE from EXE-00.toc completed successfully.
+11862 INFO: checking COLLECT
+11862 INFO: Building COLLECT because COLLECT-00.toc is non existent
+11862 INFO: Building COLLECT COLLECT-00.toc
+12828 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+12833 INFO: checking BUNDLE
+12833 INFO: Building BUNDLE because BUNDLE-00.toc is non existent
+12833 INFO: Building BUNDLE BUNDLE-00.toc
+13747 INFO: Signing the BUNDLE...
+13880 INFO: Building BUNDLE BUNDLE-00.toc completed successfully.
+13884 INFO: Build complete! The results are available in: /Users/2apple_mgn_63_ram16/Desktop/GGform/dist

@@ -1,0 +1,26 @@
+67 INFO: PyInstaller: 6.18.0, contrib hooks: 2026.0
+68 INFO: Python: 3.14.2
+76 INFO: Platform: macOS-26.2-arm64-arm-64bit-Mach-O
+77 INFO: Python environment: /Library/Frameworks/Python.framework/Versions/3.14
+77 DEPRECATION: Onefile mode in combination with macOS .app bundles (windowed mode) don't make sense (a .app bundle can not be a single file) and clashes with macOS's security. Please migrate to onedir mode. This will become an error in v7.0.
+77 INFO: wrote /Users/2apple_mgn_63_ram16/Desktop/GGform/Google Form Auto Filler.spec
+80 INFO: Module search paths (PYTHONPATH):
+['/Users/2apple_mgn_63_ram16/Desktop/GGform',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python314.zip',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/lib-dynload',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages',
+ '/Users/2apple_mgn_63_ram16/Desktop/GGform']
+180 INFO: checking Analysis
+197 INFO: checking PYZ
+204 INFO: EXE target arch: arm64
+204 INFO: Code signing identity: None
+209 INFO: checking PKG
+210 INFO: Building because toc changed
+210 INFO: Building PKG (CArchive) Google Form Auto Filler.pkg
+8155 INFO: Building PKG (CArchive) Google Form Auto Filler.pkg completed successfully.
+8158 INFO: Bootloader /Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/bootloader/Darwin-64bit/runw
+8159 INFO: checking EXE
+8163 INFO: Building because name changed
+8163 INFO: Building EXE from EXE-00.toc
+ERROR: The output directory "/Users/2apple_mgn_63_ram16/Desktop/GGform/dist/Google Form Auto Filler" is not empty. Please remove all its contents or use the -y option (remove output directory without confirmation).

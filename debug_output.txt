@@ -1,0 +1,4 @@
+  File "/Users/2apple_mgn_63_ram16/Desktop/GGform/debug_chrome.py", line 30
+    print("\n" + "="*60)
+    ^^^^^
+SyntaxError: expected 'except' or 'finally' block

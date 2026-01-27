@@ -1,0 +1,32 @@
+[
+  {
+    "0": "Nguyễn Văn A",
+    "1": "nguyena@example.com",
+    "2": "Có",
+    "3": "Rất tốt"
+  },
+  {
+    "0": "Trần Thị B",
+    "1": "tranb@example.com",
+    "2": "Không",
+    "3": "Tốt"
+  },
+  {
+    "0": "Lê Văn C",
+    "1": "levanc@example.com",
+    "2": "Không rõ",
+    "3": "Bình thường"
+  },
+  {
+    "0": "Phạm Đức D",
+    "1": "phamd@example.com",
+    "2": "Có",
+    "3": "Rất tốt"
+  },
+  {
+    "0": "Hoàng Thị E",
+    "1": "hoange@example.com",
+    "2": "Có",
+    "3": "Bình thường"
+  }
+]

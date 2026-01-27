@@ -1,0 +1,259 @@
+118 INFO: PyInstaller: 6.18.0, contrib hooks: 2026.0
+119 INFO: Python: 3.14.2
+141 INFO: Platform: macOS-26.2-arm64-arm-64bit-Mach-O
+141 INFO: Python environment: /Library/Frameworks/Python.framework/Versions/3.14
+142 INFO: wrote /Users/2apple_mgn_63_ram16/Desktop/GGform/Google Form Auto Filler.spec
+1279 INFO: Module search paths (PYTHONPATH):
+['/Users/2apple_mgn_63_ram16/Desktop/GGform',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python314.zip',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/lib-dynload',
+ '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages',
+ '/Users/2apple_mgn_63_ram16/Desktop/GGform']
+1380 INFO: Appending 'binaries' from .spec
+1382 INFO: Appending 'datas' from .spec
+1412 INFO: checking Analysis
+1412 INFO: Building Analysis because Analysis-00.toc is non existent
+1412 INFO: Looking for Python shared library...
+1415 INFO: Using Python shared library: /Library/Frameworks/Python.framework/Versions/3.14/Python
+1415 INFO: Running Analysis Analysis-00.toc
+1415 INFO: Target bytecode optimization level: 0
+1416 INFO: Initializing module dependency graph...
+1416 INFO: Initializing module graph hook caches...
+1421 INFO: Analyzing modules for base_library.zip ...
+1977 INFO: Processing standard module hook 'hook-heapq.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+2234 INFO: Processing standard module hook 'hook-encodings.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+3489 INFO: Processing standard module hook 'hook-difflib.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+3664 INFO: Processing standard module hook 'hook-pickle.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+4780 INFO: Caching module dependency graph...
+4798 INFO: Analyzing /Users/2apple_mgn_63_ram16/Desktop/GGform/gui_app_v3.py
+5782 INFO: Processing standard module hook 'hook-PyQt5.QtWidgets.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+5918 INFO: Processing standard module hook 'hook-PyQt5.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+6691 INFO: Processing standard module hook 'hook-PyQt5.QtCore.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+7532 INFO: Processing standard module hook 'hook-PyQt5.QtGui.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+7645 INFO: Processing standard module hook 'hook-selenium.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+7749 INFO: Processing standard module hook 'hook-certifi.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+7766 INFO: Processing standard module hook 'hook-urllib3.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+7886 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+7887 INFO: SetuptoolsInfo: initializing cached setuptools info...
+8198 INFO: Setuptools: 'backports' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.backports'!
+8205 INFO: Processing standard module hook 'hook-setuptools.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+8257 INFO: Processing standard module hook 'hook-platform.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+8284 INFO: Processing standard module hook 'hook-xml.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+8315 INFO: Processing standard module hook 'hook-sysconfig.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+8326 INFO: Processing standard module hook 'hook-_osx_support.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+8329 INFO: Processing standard module hook 'hook-_ctypes.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+8334 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8363 INFO: Processing pre-safe-import-module hook 'hook-jaraco.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8364 INFO: Setuptools: 'jaraco' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco'!
+8372 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8373 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+8486 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+8713 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+9349 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+9484 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+9485 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+9619 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+9642 INFO: Processing standard module hook 'hook-importlib_metadata.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+9658 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+9864 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+9865 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+10284 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_safe_import_module'
+10284 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+11359 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+11562 INFO: Processing standard module hook 'hook-charset_normalizer.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+11793 INFO: Analyzing hidden import 'webdriver_manager.drivers.edge'
+11795 INFO: Analyzing hidden import 'webdriver_manager.drivers.firefox'
+11797 INFO: Analyzing hidden import 'webdriver_manager.drivers.ie'
+11799 INFO: Analyzing hidden import 'webdriver_manager.drivers.opera'
+11800 INFO: Analyzing hidden import 'webdriver_manager.firefox'
+11802 INFO: Analyzing hidden import 'webdriver_manager.microsoft'
+11804 INFO: Analyzing hidden import 'webdriver_manager.opera'
+11806 INFO: Analyzing hidden import 'selenium.webdriver.common.bidi.cdp'
+13077 INFO: Analyzing hidden import 'selenium.webdriver.common.bidi.console'
+13077 INFO: Analyzing hidden import 'selenium.webdriver.common.log'
+13084 INFO: Analyzing hidden import 'selenium.webdriver.common.window'
+13085 INFO: Analyzing hidden import 'selenium.webdriver.remote.server'
+13090 INFO: Analyzing hidden import 'selenium.webdriver.safari.permissions'
+13091 INFO: Analyzing hidden import 'selenium.webdriver.support.abstract_event_listener'
+13094 INFO: Analyzing hidden import 'selenium.webdriver.support.color'
+13107 INFO: Analyzing hidden import 'selenium.webdriver.support.event_firing_webdriver'
+13117 INFO: Analyzing hidden import 'selenium.webdriver.support.events'
+13117 INFO: Analyzing hidden import 'PyQt5.Qt'
+13117 INFO: Analyzing hidden import 'PyQt5.QtBluetooth'
+13222 INFO: Processing standard module hook 'hook-PyQt5.QtBluetooth.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+13275 INFO: Analyzing hidden import 'PyQt5.QtDBus'
+13319 INFO: Processing standard module hook 'hook-PyQt5.QtDBus.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+13373 INFO: Analyzing hidden import 'PyQt5.QtDesigner'
+13415 INFO: Processing standard module hook 'hook-PyQt5.QtDesigner.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+13473 WARNING: QtLibraryInfo(PyQt5): could not find translations with base name 'designer'! These translations will not be collected.
+13474 INFO: Analyzing hidden import 'PyQt5.QtHelp'
+13501 INFO: Processing standard module hook 'hook-PyQt5.QtHelp.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+13555 INFO: Analyzing hidden import 'PyQt5.QtLocation'
+13664 INFO: Processing standard module hook 'hook-PyQt5.QtLocation.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+13780 INFO: Processing standard module hook 'hook-PyQt5.QtPositioning.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+13842 INFO: Analyzing hidden import 'PyQt5.QtMacExtras'
+13851 INFO: Processing standard module hook 'hook-PyQt5.QtMacExtras.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+13906 INFO: Analyzing hidden import 'PyQt5.QtMultimedia'
+14186 INFO: Processing standard module hook 'hook-PyQt5.QtMultimedia.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+14439 INFO: Processing standard module hook 'hook-PyQt5.QtNetwork.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+14648 INFO: Analyzing hidden import 'PyQt5.QtMultimediaWidgets'
+14658 INFO: Processing standard module hook 'hook-PyQt5.QtMultimediaWidgets.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+14705 INFO: Analyzing hidden import 'PyQt5.QtNfc'
+14739 INFO: Processing standard module hook 'hook-PyQt5.QtNfc.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+14785 INFO: Analyzing hidden import 'PyQt5.QtOpenGL'
+14814 INFO: Processing standard module hook 'hook-PyQt5.QtOpenGL.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+14861 INFO: Analyzing hidden import 'PyQt5.QtPrintSupport'
+14897 INFO: Processing standard module hook 'hook-PyQt5.QtPrintSupport.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+14946 INFO: Analyzing hidden import 'PyQt5.QtQml'
+15007 INFO: Processing standard module hook 'hook-PyQt5.QtQml.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15255 INFO: Analyzing hidden import 'PyQt5.QtQuick'
+15397 INFO: Processing standard module hook 'hook-PyQt5.QtQuick.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15449 INFO: Analyzing hidden import 'PyQt5.QtQuick3D'
+15456 INFO: Processing standard module hook 'hook-PyQt5.QtQuick3D.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15522 INFO: Analyzing hidden import 'PyQt5.QtQuickWidgets'
+15530 INFO: Processing standard module hook 'hook-PyQt5.QtQuickWidgets.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15576 INFO: Analyzing hidden import 'PyQt5.QtRemoteObjects'
+15590 INFO: Processing standard module hook 'hook-PyQt5.QtRemoteObjects.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15635 INFO: Analyzing hidden import 'PyQt5.QtSensors'
+15676 INFO: Processing standard module hook 'hook-PyQt5.QtSensors.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15730 INFO: Analyzing hidden import 'PyQt5.QtSerialPort'
+15753 INFO: Processing standard module hook 'hook-PyQt5.QtSerialPort.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15799 INFO: Analyzing hidden import 'PyQt5.QtSql'
+15862 INFO: Processing standard module hook 'hook-PyQt5.QtSql.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+15928 INFO: Analyzing hidden import 'PyQt5.QtSvg'
+15988 INFO: Processing standard module hook 'hook-PyQt5.QtSvg.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16057 INFO: Analyzing hidden import 'PyQt5.QtTest'
+16077 INFO: Processing standard module hook 'hook-PyQt5.QtTest.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16228 INFO: Analyzing hidden import 'PyQt5.QtTextToSpeech'
+16235 INFO: Processing standard module hook 'hook-PyQt5.QtTextToSpeech.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16294 INFO: Analyzing hidden import 'PyQt5.QtWebChannel'
+16297 INFO: Processing standard module hook 'hook-PyQt5.QtWebChannel.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16354 INFO: Analyzing hidden import 'PyQt5.QtWebSockets'
+16375 INFO: Processing standard module hook 'hook-PyQt5.QtWebSockets.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16432 INFO: Analyzing hidden import 'PyQt5.QtXml'
+16503 INFO: Processing standard module hook 'hook-PyQt5.QtXml.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16558 INFO: Analyzing hidden import 'PyQt5.QtXmlPatterns'
+16592 INFO: Processing standard module hook 'hook-PyQt5.QtXmlPatterns.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16654 INFO: Analyzing hidden import 'PyQt5._QOpenGLFunctions_2_0'
+16654 INFO: Analyzing hidden import 'PyQt5._QOpenGLFunctions_2_1'
+16654 INFO: Analyzing hidden import 'PyQt5._QOpenGLFunctions_4_1_Core'
+16655 INFO: Analyzing hidden import 'PyQt5.pylupdate'
+16655 INFO: Analyzing hidden import 'PyQt5.pylupdate_main'
+16660 INFO: Analyzing hidden import 'PyQt5.pyrcc'
+16660 INFO: Analyzing hidden import 'PyQt5.pyrcc_main'
+16663 INFO: Analyzing hidden import 'PyQt5.uic'
+16666 INFO: Processing standard module hook 'hook-PyQt5.uic.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16770 INFO: Processing pre-find-module-path hook 'hook-PyQt5.uic.port_v2.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_find_module_path'
+16853 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+16884 INFO: Analyzing hidden import 'PyQt5.uic.driver'
+16886 INFO: Analyzing hidden import 'PyQt5.uic.port_v2.as_string'
+16886 ERROR: Hidden import 'PyQt5.uic.port_v2.as_string' not found
+16886 INFO: Analyzing hidden import 'PyQt5.uic.port_v2.ascii_upper'
+16886 ERROR: Hidden import 'PyQt5.uic.port_v2.ascii_upper' not found
+16886 INFO: Analyzing hidden import 'PyQt5.uic.port_v2.proxy_base'
+16886 ERROR: Hidden import 'PyQt5.uic.port_v2.proxy_base' not found
+16886 INFO: Analyzing hidden import 'PyQt5.uic.port_v2.string_io'
+16887 ERROR: Hidden import 'PyQt5.uic.port_v2.string_io' not found
+16887 INFO: Analyzing hidden import 'PyQt5.uic.pyuic'
+16917 INFO: Processing module hooks (post-graph stage)...
+16922 WARNING: Hidden import "sip" not found!
+17629 INFO: Processing standard module hook 'hook-PyQt5.Qt.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+17678 INFO: Performing binary vs. data reclassification (2787 entries)
+18252 INFO: Looking for ctypes DLLs
+18285 INFO: Analyzing run-time hooks ...
+18287 INFO: Including run-time hook 'pyi_rth_inspect.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+18289 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+18291 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+18292 INFO: Including run-time hook 'pyi_rth_setuptools.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+18293 INFO: Including run-time hook 'pyi_rth_pyqt5.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+18294 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks/pre_find_module_path'
+18295 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/hooks'
+18338 INFO: Creating base_library.zip...
+18351 INFO: Looking for dynamic libraries
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/geometryloaders/libdefaultgeometryloader.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/geometryloaders/libdefaultgeometryloader.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/geometryloaders/libgltfgeometryloader.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/geometryloaders/libgltfgeometryloader.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/QtPdf.framework/Versions/5/QtPdf', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/imageformats/libqpdf.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderers/libopenglrenderer.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderers/libopenglrenderer.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/QtGamepad.framework/Versions/5/QtGamepad', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DInput.framework/Versions/5/Qt3DInput', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DQuickScene2D.framework/Versions/5/Qt3DQuickScene2D', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DExtras.framework/Versions/5/Qt3DExtras', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DLogic.framework/Versions/5/Qt3DLogic', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DQuick.framework/Versions/5/Qt3DQuick', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/renderplugins/libscene2d.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/QtGamepad.framework/Versions/5/QtGamepad', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libassimpsceneimport.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DInput.framework/Versions/5/Qt3DInput', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libassimpsceneimport.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DExtras.framework/Versions/5/Qt3DExtras', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libassimpsceneimport.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libassimpsceneimport.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DLogic.framework/Versions/5/Qt3DLogic', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libassimpsceneimport.dylib'.
+19004 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libassimpsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DAnimation.framework/Versions/5/Qt3DAnimation', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libassimpsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DLogic.framework/Versions/5/Qt3DLogic', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneexport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtGamepad.framework/Versions/5/QtGamepad', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneexport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DInput.framework/Versions/5/Qt3DInput', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneexport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DExtras.framework/Versions/5/Qt3DExtras', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneexport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneexport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneexport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DLogic.framework/Versions/5/Qt3DLogic', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtGamepad.framework/Versions/5/QtGamepad', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DInput.framework/Versions/5/Qt3DInput', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DExtras.framework/Versions/5/Qt3DExtras', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sceneparsers/libgltfsceneimport.dylib'.
+19005 WARNING: Library not found: could not resolve '/opt/homebrew/opt/postgresql@15/lib/libpq.5.dylib', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/sqldrivers/libqsqlpsql.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtWebEngine.framework/Versions/5/QtWebEngine', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/webview/libqtwebview_webengine.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtWebEngineCore.framework/Versions/5/QtWebEngineCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/plugins/webview/libqtwebview_webengine.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtBodymovin.framework/Versions/5/QtBodymovin', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/Qt/labs/lottieqt/liblottieqtplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtPdf.framework/Versions/5/QtPdf', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Pdf/libpdfplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtGamepad.framework/Versions/5/QtGamepad', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene2D/libqtquickscene2dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DInput.framework/Versions/5/Qt3DInput', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene2D/libqtquickscene2dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DQuickScene2D.framework/Versions/5/Qt3DQuickScene2D', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene2D/libqtquickscene2dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene2D/libqtquickscene2dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DLogic.framework/Versions/5/Qt3DLogic', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene2D/libqtquickscene2dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene2D/libqtquickscene2dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DQuick.framework/Versions/5/Qt3DQuick', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene2D/libqtquickscene2dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/QtGamepad.framework/Versions/5/QtGamepad', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene3D/libqtquickscene3dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DInput.framework/Versions/5/Qt3DInput', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene3D/libqtquickscene3dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DRender.framework/Versions/5/Qt3DRender', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene3D/libqtquickscene3dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DLogic.framework/Versions/5/Qt3DLogic', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene3D/libqtquickscene3dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DCore.framework/Versions/5/Qt3DCore', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene3D/libqtquickscene3dplugin.dylib'.
+19005 WARNING: Library not found: could not resolve '@rpath/Qt3DAnimation.framework/Versions/5/Qt3DAnimation', dependency of '/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyQt5/Qt5/qml/QtQuick/Scene3D/libqtquickscene3dplugin.dylib'.
+20989 INFO: Warnings written to /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/warn-Google Form Auto Filler.txt
+21014 INFO: Graph cross-reference written to /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/xref-Google Form Auto Filler.html
+21327 INFO: checking PYZ
+21327 INFO: Building PYZ because PYZ-00.toc is non existent
+21327 INFO: Building PYZ (ZlibArchive) /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/PYZ-00.pyz
+21815 INFO: Building PYZ (ZlibArchive) /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/PYZ-00.pyz completed successfully.
+21825 INFO: EXE target arch: arm64
+21825 INFO: Code signing identity: None
+21827 INFO: checking PKG
+21827 INFO: Building PKG because PKG-00.toc is non existent
+21827 INFO: Building PKG (CArchive) Google Form Auto Filler.pkg
+21871 INFO: Building PKG (CArchive) Google Form Auto Filler.pkg completed successfully.
+21872 INFO: Bootloader /Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/PyInstaller/bootloader/Darwin-64bit/runw
+21872 INFO: checking EXE
+21872 INFO: Building EXE because EXE-00.toc is non existent
+21872 INFO: Building EXE from EXE-00.toc
+21872 INFO: Copying bootloader EXE to /Users/2apple_mgn_63_ram16/Desktop/GGform/build/Google Form Auto Filler/Google Form Auto Filler
+21877 INFO: Converting EXE to target arch (arm64)
+22161 INFO: Removing signature(s) from EXE
+22176 INFO: Modifying Mach-O image UUID(s) in EXE
+22181 INFO: Appending PKG archive to EXE
+22184 INFO: Fixing EXE headers for code signing
+22190 INFO: Re-signing the EXE
+22213 INFO: Building EXE from EXE-00.toc completed successfully.
+22229 INFO: checking COLLECT
+22230 INFO: Building COLLECT because COLLECT-00.toc is non existent
+22230 INFO: Building COLLECT COLLECT-00.toc
+35193 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+35239 INFO: checking BUNDLE
+35240 INFO: Building BUNDLE because BUNDLE-00.toc is non existent
+35240 INFO: Building BUNDLE BUNDLE-00.toc
+41623 INFO: Signing the BUNDLE...
+42212 INFO: Building BUNDLE BUNDLE-00.toc completed successfully.
+42250 INFO: Build complete! The results are available in: /Users/2apple_mgn_63_ram16/Desktop/GGform/dist
