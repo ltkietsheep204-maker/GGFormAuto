@@ -76,13 +76,19 @@ class GoogleFormWorker(QThread):
             
             # Use webdriver_manager to handle chromedriver automatically
             try:
-                self.driver = webdriver.Chrome(
-                    service=Service(ChromeDriverManager().install()),
-                    options=options
-                )
+                try:
+                    self.driver = webdriver.Chrome(
+                        service=Service(ChromeDriverManager().install()),
+                        options=options
+                    )
+                except Exception as e1:
+                    logger.warning(f"webdriver_manager failed: {e1}")
+                    # Fallback: Use system Chrome
+                    self.driver = webdriver.Chrome(options=options)
             except Exception as e:
-                logger.warning(f"Failed to use webdriver_manager: {e}, trying standard path...")
-                self.driver = webdriver.Chrome(options=options)
+                logger.error(f"Failed to initialize Chrome: {e}")
+                self.error_signal.emit(f"Không thể khởi động Chrome: {e}")
+                return
             
             self.driver.get(form_url)
             
@@ -147,54 +153,109 @@ class GoogleFormWorker(QThread):
                 logger.info(f"\n{'='*60}")
                 logger.info(f"EXTRACTING FROM EDITOR LINK (Single Page)")
                 logger.info(f"{'='*60}")
-                
                 # Find all questions on editor link (all on 1 page)
                 time.sleep(3)  # Wait for page to fully load
-                question_elements = self.driver.find_elements(By.CLASS_NAME, "Qr7Oae")
-                logger.info(f"Found {len(question_elements)} question elements")
                 
-                if len(question_elements) == 0:
-                    self.error.emit("❌ Form trống hoặc URL không hợp lệ!")
+                # NEW METHOD: Get questions directly from .editable divs with aria-label
+                # The form editor uses contenteditable divs with specific aria-labels
+                try:
+                    import unicodedata
+                    
+                    # Find ALL .editable divs that are questions or section headers
+                    all_editable = self.driver.find_elements(By.CLASS_NAME, "editable")
+                    
+                    logger.info(f"Found {len(all_editable)} .editable divs total")
+                    
+                    # Store data immediately to avoid stale references
+                    editable_data = []
+                    for elem in all_editable:
+                        aria = elem.get_attribute('aria-label') or ""
+                        text = elem.text.strip() if elem.text else ""
+                        # Normalize Unicode for proper comparison
+                        aria_normalized = unicodedata.normalize('NFC', aria)
+                        editable_data.append({
+                            'aria': aria_normalized,
+                            'text': text,
+                            'elem': elem
+                        })
+                    
+                    # Process elements
+                    combined = []
+                    for item in editable_data:
+                        aria = item['aria']
+                        text = item['text']
+                        elem = item['elem']
+                        
+                        # Check if question (aria-label="Câu hỏi")
+                        if aria == "Câu hỏi" and text:
+                            combined.append(("question", elem, text))
+                        # Check if section header
+                        elif aria in ("Tiêu đề phần (không bắt buộc)", "Tiêu đề phần") and text:
+                            combined.append(("section", elem, text))
+                    
+                    if len(combined) == 0:
+                        self.error.emit("❌ Form trống hoặc URL không hợp lệ!")
+                        return
+                    
+                    logger.info(f"Processing {len(combined)} items (questions + sections)")
+                    
+                except Exception as e:
+                    logger.debug(f"New method failed: {e}")
+                    logger.debug(f"Error: {traceback.format_exc()}")
+                    self.error.emit(f"❌ Lỗi khi đọc form: {str(e)}")
                     return
                 
-                # Extract all questions
-                for idx, question_element in enumerate(question_elements):
+                # Extract all questions and sections
+                for item_type, elem, title in combined:
                     try:
-                        # Check if this is a section header/page title
-                        is_section_header = self._is_section_header(question_element)
-                        if is_section_header:
-                            header_text = self._get_section_header_text(question_element)
-                            logger.info(f"  📌 Section header: '{header_text}'")
+                        if item_type == "section":
+                            # This is a section header
+                            logger.info(f"  📌 Section header: '{title}'")
                             
                             section_data = {
                                 "index": len(self.questions),
-                                "title": header_text,
+                                "title": title,
                                 "type": "section_header",
                                 "options": [],
                                 "required": False,
-                                "element": question_element,
+                                "element": elem,
                                 "is_page_title": True
                             }
                             self.questions.append(section_data)
-                            self.progress.emit(f"📌 {header_text}")
+                            self.progress.emit(f"📌 {title}")
                             continue
                         
-                        title = self._get_question_text(question_element)
-                        q_type = self._get_question_type(question_element)
-                        
-                        if not title or title == "Untitled Question":
-                            logger.debug(f"  Skipping element with no title")
+                        # This is a question
+                        if not title:
+                            logger.debug(f"  Skipping question with empty text")
                             continue
                         
-                        options_list = self._get_options_complete(question_element)
+                        # Find parent container to get options
+                        parent_container = self.driver.execute_script("""
+                            let el = arguments[0];
+                            while (el && el.parentElement) {
+                                if (el.getAttribute('data-item-id')) {
+                                    return el;
+                                }
+                                el = el.parentElement;
+                            }
+                            return null;
+                        """, elem)
+                        
+                        if not parent_container:
+                            logger.debug(f"  Skipping - no parent container found")
+                            continue
+                        
+                        q_type = self._get_question_type(parent_container)
+                        options_list = self._get_options_complete(parent_container)
                         
                         question_data = {
                             "index": len(self.questions),
                             "title": title,
                             "type": q_type,
                             "options": options_list,
-                            "required": self._is_required(question_element),
-                            "element": question_element,
+                            "required": self._is_required(elem),
+                            "element": elem,
                             "is_page_title": False
                         }
                         
@@ -206,7 +267,7 @@ class GoogleFormWorker(QThread):
                             for opt in options_list:
                                 logger.debug(f"    - {opt['text']}")
                     except Exception as e:
-                        logger.error(f"Error processing question {idx}: {e}\n{traceback.format_exc()}")
+                        logger.error(f"Error processing question: {e}\n{traceback.format_exc()}")
                         self.progress.emit(f"⚠️ Lỗi câu {len(self.questions)}: {str(e)}")
                 
                 logger.info(f"\n{'='*60}")
@@ -228,12 +289,25 @@ class GoogleFormWorker(QThread):
                 # Try to find questions using multiple strategies
                 question_elements = []
                 
-                # Use the proven class name from interactive_filler.py
+                # Try new selector first (data-item-id), fallback to role='listitem', then Qr7Oae
                 try:
-                    question_elements = self.driver.find_elements(By.CLASS_NAME, "Qr7Oae")
-                    logger.info(f"Found {len(question_elements)} elements with class 'Qr7Oae'")
-                except:
-                    logger.debug("Could not find elements with class 'Qr7Oae'")
+                    question_elements = self.driver.find_elements(By.XPATH, "//*[@data-item-id]")
+                    if len(question_elements) > 0:
+                        logger.info(f"Found {len(question_elements)} elements with data-item-id")
+                    else:
+                        question_elements = self.driver.find_elements(By.XPATH, "//div[@role='listitem']")
+                        if len(question_elements) > 0:
+                            logger.info(f"Found {len(question_elements)} elements with role='listitem'")
+                        else:
+                            question_elements = self.driver.find_elements(By.CLASS_NAME, "Qr7Oae")
+                            logger.info(f"Found {len(question_elements)} elements with class 'Qr7Oae'")
+                except Exception as e:
+                    logger.debug(f"Error finding questions: {e}")
+                    try:
+                        question_elements = self.driver.find_elements(By.CLASS_NAME, "Qr7Oae")
+                        logger.info(f"Found {len(question_elements)} elements with class 'Qr7Oae'")
+                    except:
+                        pass
                 
                 # If still no elements, log detailed debug info
                 if len(question_elements) == 0:
@@ -392,13 +466,85 @@ class GoogleFormWorker(QThread):
                     self.driver.quit()
                 except:
                     pass
-    def _is_section_header(self, question_element) -> bool:
-        """Kiểm tra xem element này có phải section header/page title không"""
+    def _is_actual_question(self, question_element) -> bool:
+        """Kiểm tra xem element này có phải câu hỏi thực không (aria-label='Câu hỏi')"""
         try:
-            # Find M7eMe span and check if it's a section header
+            # BEST METHOD: Check for aria-label="Câu hỏi" directly
+            question_div = question_element.find_element(By.XPATH, ".//div[@aria-label='Câu hỏi']")
+            if question_div:
+                title_text = question_div.text.strip() if question_div.text else ""
+                logger.debug(f"  Question found via aria-label: '{title_text}'")
+                return True
+        except:
+            pass
+        
+        # Fallback: Old method - check for title + options
+        try:
+            # Check if has M7eMe (title)
+            spans = question_element.find_elements(By.CLASS_NAME, "M7eMe")
+            has_title = False
+            title_text = ""
+            
+            for span in spans:
+                text = span.get_attribute('innerText') or span.get_attribute('textContent')
+                if text:
+                    text = text.strip().replace('\xa0', ' ').strip()
+                    # Skip section headers and empty titles
+                    if "Phần" not in text and "Mục không có tiêu đề" not in text and text:
+                        has_title = True
+                        title_text = text
+                        break
+            
+            if not has_title:
+                return False
+            
+            # Check if has options - TRY MULTIPLE METHODS
+            # Method 1: Check for radio/checkbox (VIEWFORM)
+            radios = question_element.find_elements(By.XPATH, ".//div[@role='radio']")
+            checkboxes = question_element.find_elements(By.XPATH, ".//div[@role='checkbox']")
+            has_options = len(radios) > 0 or len(checkboxes) > 0
+            
+            # Method 2: Check for text input options (EDIT link)
+            if not has_options:
+                text_inputs = question_element.find_elements(By.XPATH, ".//input[@type='text' and contains(@class, 'Hvn9fb') and contains(@class, 'zHQkBf')]")
+                has_options = len(text_inputs) > 0
+            
+            # Method 3: Check for YKDB3e (VIEWFORM fallback)
+            if not has_options:
+                ykdb_elements = question_element.find_elements(By.CLASS_NAME, "YKDB3e")
+                has_options = len(ykdb_elements) > 0
+            
+            if has_options:
+                logger.debug(f"  Actual question found: {title_text[:40]} (has {len(radios)} radios, {len(checkboxes)} checkboxes)")
+                return True
+            
+            return False
+        except Exception as e:
+            logger.debug(f"  _is_actual_question error: {e}")
+            return False
+    
+    def _is_section_header(self, question_element) -> bool:
+        """Kiểm tra xem element này có phải section header/page title không (aria-label='Tiêu đề phần' hoặc 'Tiêu đề biểu mẫu')
+        NOTE: Bỏ qua form title (Tiêu đề biểu mẫu) - chỉ lấy section headers (Tiêu đề phần)"""
+        try:
+            # BEST METHOD: Check for aria-label containing "Tiêu đề"
+            textboxes = question_element.find_elements(By.XPATH, ".//div[@role='textbox']")
+            for tb in textboxes:
+                aria = (tb.get_attribute('aria-label') or '').strip()
+                
+                # ONLY take section headers, skip form title
+                if aria == "Tiêu đề phần (không bắt buộc)" or aria == "Tiêu đề phần":
+                    logger.debug(f"  Section header detected: aria-label={aria}")
+                    return True
+                
+                # Skip form title (Tiêu đề biểu mẫu)
+                if aria == "Tiêu đề biểu mẫu":
+                    logger.debug(f"  Skipping form title: aria-label={aria}")
+                    return False
+            
+            # Fallback: Check for M7eMe span text
             spans = question_element.find_elements(By.CLASS_NAME, "M7eMe")
             for span in spans:
-                # Use get_attribute for editor links (where .text doesn't work)
                 text = span.get_attribute('innerText') or span.get_attribute('textContent')
                 if text:
                     text = text.strip().replace('\xa0', ' ').strip()
@@ -409,23 +555,8 @@ class GoogleFormWorker(QThread):
                     if "Mục không có tiêu đề" in text:
                         logger.debug(f"  Section header detected: {text}")
                         return True
-            # Also check for textbox elements that are form/section titles
-            try:
-                textboxes = question_element.find_elements(By.XPATH, ".//div[@role='textbox']")
-                for tb in textboxes:
-                    aria = (tb.get_attribute('aria-label') or '').strip()
-                    tb_text = (tb.get_attribute('innerText') or tb.get_attribute('textContent') or '').strip()
-                    tb_text = tb_text.replace('\xa0', ' ').strip()
-                    # If aria-label indicates a form title or section title, treat as page break
-                    if aria in ("Tiêu đề phần (không bắt buộc)", "Tiêu đề biểu mẫu", "Tiêu đề phần"):
-                        logger.debug(f"  Section header detected via aria-label: {aria} / text: {tb_text}")
-                        return True
-                    # If the textbox text explicitly matches the common section text
-                    if tb_text and ("Mục không có tiêu đề" in tb_text or tb_text.lower().startswith('tiêu đề')):
-                        logger.debug(f"  Section header detected via textbox text: {tb_text}")
-                        return True
-            except Exception:
-                pass
+            
+            return False
         except Exception as e:
             logger.debug(f"  _is_section_header error: {e}")
         
@@ -518,9 +649,9 @@ class GoogleFormWorker(QThread):
             logger.warning(f"Auto-answer error: {e}")
     
     def _get_question_text(self, question_element) -> str:
-        """Lấy text câu hỏi"""
+        """Lấy text câu hỏi - lấy M7eMe text đầu tiên không rỗng"""
         try:
-            # Strategy 1: Try M7eMe span (works for editor links)
+            # Strategy 1: Try M7eMe span (works for editor links + new structure)
             try:
                 spans = question_element.find_elements(By.CLASS_NAME, "M7eMe")
                 if spans:
@@ -529,8 +660,11 @@ class GoogleFormWorker(QThread):
                         text = span.get_attribute('innerText') or span.get_attribute('textContent')
                         if text:
                             text = text.strip().replace('\xa0', ' ').strip()
-                            # Skip section headers
-                            if "Mục không có tiêu đề" not in text and text:
+                            # Skip empty, section headers (Phần X / Y), and untitled
+                            if (text and 
+                                "Mục không có tiêu đề" not in text and 
+                                "Phần" not in text and
+                                len(text) > 2):  # Skip very short text
                                 logger.debug(f"  Got title via M7eMe: {text[:50]}")
                                 return text
             except Exception as e:
@@ -604,8 +738,8 @@ class GoogleFormWorker(QThread):
             if textareas and len(textareas) > 0:
                 return "long_answer"
             
-            # Method 7: Kiểm tra text input (short answer)
-            text_inputs = question_element.find_elements(By.CSS_SELECTOR, "input[type='text']")
+            # Method 7: Kiểm tra text input (short answer) - EXCLUDE option inputs
+            text_inputs = question_element.find_elements(By.XPATH, ".//input[@type='text' and not(contains(@class, 'Hvn9fb')) and not(contains(@class, 'zHQkBf'))]")
             if text_inputs and len(text_inputs) > 0:
                 return "short_answer"
             
@@ -614,59 +748,120 @@ class GoogleFormWorker(QThread):
             return "unknown"
     
     def _get_options_complete(self, question_element) -> List[Dict]:
-        """Lấy danh sách lựa chọn - hỗ trợ cả editor link và viewform"""
+        """Lấy danh sách lựa chọn - chỉ trong question element này"""
         options = []
         
-        # Strategy 1: For EDITOR link - find div[@role='radio'] with aria-label
+        # Strategy 1: Find text input options with aria-label='giá trị tùy chọn' (form editor)
+        # CRITICAL: Only inputs with this aria-label are actual option display fields
         try:
+            # Only get inputs that are actual option value fields (not "Thêm tùy chọn" or "Khác")
+            text_inputs = question_element.find_elements(By.XPATH, ".//input[@type='text' and contains(@class, 'Hvn9fb') and contains(@class, 'zHQkBf') and @aria-label='giá trị tùy chọn']")
+            logger.debug(f"  Found {len(text_inputs)} text input options (aria-label filter)")
+            
+            if text_inputs and len(text_inputs) > 0:
+                seen_values = set()  # Track seen values to avoid duplicates
+                for idx, inp in enumerate(text_inputs):
+                    try:
+                        value = inp.get_attribute('value')
+                        if value and value.strip():
+                            # Only add if we haven't seen this exact value yet (avoid duplicates)
+                            if value.strip() not in seen_values:
+                                options.append({
+                                    "index": idx,
+                                    "text": value.strip()
+                                })
+                                seen_values.add(value.strip())
+                                logger.debug(f"    Option {idx}: {value.strip()}")
+                    except:
+                        pass
+                
+                if options:
+                    logger.debug(f"  Extracted {len(options)} options from text inputs")
+                    return options
+        except Exception as e:
+            logger.debug(f"  Text input aria-label strategy failed: {e}")
+        
+        # Strategy 2: Without aria-label filter but limit - fallback if strategy 1 fails
+        try:
+            text_inputs = question_element.find_elements(By.XPATH, ".//input[@type='text' and contains(@class, 'Hvn9fb') and contains(@class, 'zHQkBf')]")
+            logger.debug(f"  Found {len(text_inputs)} text input options (no filter)")
+            
+            if text_inputs and len(text_inputs) > 0:
+                # LIMIT: Only take first 20 (max realistic number of options per question)
+                text_inputs_limited = text_inputs[:20]
+                
+                seen_values = set()
+                for idx, inp in enumerate(text_inputs_limited):
+                    try:
+                        value = inp.get_attribute('value')
+                        # Only add if value exists
+                        if value and value.strip():
+                            # Skip if value is clearly metadata (too long, contains special chars)
+                            text_value = value.strip()
+                            if not any(x in text_value for x in ['jsname', 'data-', 'aria-']) and text_value not in seen_values:
+                                options.append({
+                                    "index": idx,
+                                    "text": text_value
+                                })
+                                seen_values.add(text_value)
+                                logger.debug(f"    Option {idx}: '{text_value}'")
+                    except:
+                        pass
+                
+                if options:
+                    logger.debug(f"  Extracted {len(options)} options from text inputs")
+                    return options
+        except Exception as e:
+            logger.debug(f"  Text input fallback strategy failed: {e}")
+        
+        try:
+            # Lấy tất cả radio buttons để đếm số options
             radio_divs = question_element.find_elements(By.XPATH, ".//div[@role='radio']")
-            logger.debug(f"  Found {len(radio_divs)} radio divs")
+            logger.debug(f"  Found {len(radio_divs)} radio buttons")
             
-            if radio_divs:
-                for idx, radio in enumerate(radio_divs):
+            if len(radio_divs) == 0:
+                logger.debug(f"  No radio buttons, trying checkboxes")
+                radio_divs = question_element.find_elements(By.XPATH, ".//div[@role='checkbox']")
+            
+            if radio_divs and len(radio_divs) > 0:
+                # Lấy tất cả span.OIC90c
+                all_oic_spans = question_element.find_elements(By.CLASS_NAME, "OIC90c")
+                logger.debug(f"  Found {len(all_oic_spans)} total OIC90c spans, need to extract {len(radio_divs)} options")
+                
+                # Filter: lấy OIC90c spans mà có text và không phải "Mô tả", "Chú thích", v.v
+                option_texts = []
+                for span in all_oic_spans:
                     try:
-                        # Get text from aria-label or data-value
-                        text = radio.get_attribute('aria-label') or radio.get_attribute('data-value')
-                        if text and text.strip():
-                            options.append({
-                                "index": idx,
-                                "text": text.strip()
-                            })
-                            logger.debug(f"    Option {idx}: {text.strip()}")
+                        text = self.driver.execute_script("return arguments[0].innerText || arguments[0].textContent", span)
+                        text = text.strip() if text else ""
+                        
+                        # Skip empty, labels, and common non-option texts
+                        if (text and 
+                            not any(x in text.lower() for x in ['mô tả', 'chú thích', 'mục khác', 'bắt buộc', 'required']) and
+                            len(text) > 0):
+                            option_texts.append(text)
+                            logger.debug(f"    Candidate text: '{text}'")
                     except:
                         pass
                 
-                if options:
-                    logger.debug(f"  Extracted {len(options)} options from radio divs")
-                    return options
-        except Exception as e:
-            logger.debug(f"  Strategy 1 (radio divs) failed: {e}")
-        
-        # Strategy 2: For CHECKBOX - find div[@role='checkbox']
-        try:
-            checkbox_divs = question_element.find_elements(By.XPATH, ".//div[@role='checkbox']")
-            logger.debug(f"  Found {len(checkbox_divs)} checkbox divs")
-            
-            if checkbox_divs:
-                for idx, checkbox in enumerate(checkbox_divs):
-                    try:
-                        text = checkbox.get_attribute('aria-label') or checkbox.get_attribute('data-value')
-                        if text and text.strip():
-                            options.append({
-                                "index": idx,
-                                "text": text.strip()
-                            })
-                            logger.debug(f"    Option {idx}: {text.strip()}")
-                    except:
-                        pass
+                # Chỉ lấy N options đầu tiên (N = số radio buttons)
+                selected_options = option_texts[:len(radio_divs)]
+                logger.debug(f"  Selected {len(selected_options)} options from candidates")
+                
+                for idx, text in enumerate(selected_options):
+                    options.append({
+                        "index": idx,
+                        "text": text
+                    })
+                    logger.debug(f"    Option {idx}: {text}")
                 
                 if options:
-                    logger.debug(f"  Extracted {len(options)} options from checkbox divs")
+                    logger.debug(f"  Extracted {len(options)} options")
                     return options
         except Exception as e:
-            logger.debug(f"  Strategy 2 (checkbox divs) failed: {e}")
+            logger.debug(f"  Strategy OIC90c failed: {e}")
         
-        # Strategy 3: For VIEWFORM link - find YKDB3e class
+        # Fallback: For VIEWFORM link - find YKDB3e class
         try:
             option_elements = question_element.find_elements(By.CLASS_NAME, "YKDB3e")
             logger.debug(f"  Found {len(option_elements)} YKDB3e elements (viewform)")
@@ -689,31 +884,7 @@ class GoogleFormWorker(QThread):
                     logger.debug(f"  Extracted {len(options)} options from YKDB3e")
                     return options
         except Exception as e:
-            logger.debug(f"  Strategy 3 (YKDB3e) failed: {e}")
-        
-        # Strategy 4: For INPUT elements (fallback)
-        try:
-            input_elements = question_element.find_elements(By.XPATH, ".//input[@type='radio' or @type='checkbox']")
-            logger.debug(f"  Found {len(input_elements)} input radio/checkbox")
-            
-            if input_elements:
-                for idx, inp in enumerate(input_elements):
-                    try:
-                        value = inp.get_attribute('value')
-                        if value:
-                            options.append({
-                                "index": idx,
-                                "text": value
-                            })
-                            logger.debug(f"    Option {idx}: {value}")
-                    except:
-                        pass
-                
-                if options:
-                    logger.debug(f"  Extracted {len(options)} options from input elements")
-                    return options
-        except Exception as e:
-            logger.debug(f"  Strategy 4 (input elements) failed: {e}")
+            logger.debug(f"  Strategy YKDB3e failed: {e}")
         
         logger.debug(f"  No options found")
         return options
@@ -760,9 +931,9 @@ class SubmissionWorker(QThread):
     def run(self):
         """Chạy gửi responses - hỗ trợ parallel processing"""
         try:
-            # Validate count
-            logger.info(f"[WORKER START] Raw count={self.count}, type={type(self.count)}")
+            logger.info(f"[WORKER START] count={self.count}, max_parallel={self.max_parallel}")
             
+            # Validate count
             try:
                 count_int = int(self.count)
             except (TypeError, ValueError) as e:
@@ -771,19 +942,16 @@ class SubmissionWorker(QThread):
                 return
             
             if count_int <= 0:
-                logger.error(f"[WORKER] Invalid count: {count_int}")
-                self.error.emit(f"❌ Lỗi: Số responses phải > 0 (nhập: {count_int})")
+                self.error.emit(f"❌ Lỗi: Số responses phải > 0")
                 return
             
-            logger.info(f"[WORKER START] Using count={count_int}, max_parallel={self.max_parallel}")
-            
-            # 🆕 Chọn chế độ chạy
-            if self.max_parallel > 1:
-                logger.info(f"[WORKER] Starting PARALLEL mode with {self.max_parallel} tabs")
-                self._run_parallel(count_int)
-            else:
-                logger.info(f"[WORKER] Starting SEQUENTIAL mode (1 tab)")
+            # Chọn chế độ chạy
+            if self.max_parallel <= 1:
+                logger.info(f"[WORKER] Running in SEQUENTIAL mode (1 tab)")
                 self._run_sequential(count_int)
+            else:
+                logger.info(f"[WORKER] Running in PARALLEL mode ({self.max_parallel} tabs)")
+                self._run_parallel(count_int)
         
         except Exception as e:
             logger.error(f"[WORKER ERROR] Fatal error: {e}", exc_info=True)
@@ -799,7 +967,7 @@ class SubmissionWorker(QThread):
                 except Exception as e:
                     logger.warning(f"[WORKER] Error on driver.quit(): {e}")
             logger.info("[WORKER] ✓ Cleanup complete")
-    
+
     def _run_sequential(self, count_int: int):
         """🆕 Chạy submit tuần tự (1 tab)"""
         import threading
@@ -811,13 +979,22 @@ class SubmissionWorker(QThread):
         options.add_argument("--disable-gpu")
         
         try:
-            self.driver = webdriver.Chrome(
-                service=Service(ChromeDriverManager().install()),
-                options=options
-            )
+            try:
+                # Try with webdriver_manager first
+                self.driver = webdriver.Chrome(
+                    service=Service(ChromeDriverManager().install()),
+                    options=options
+                )
+            except Exception as e1:
+                logger.warning(f"webdriver_manager failed: {e1}")
+                # Fallback: Use system Chrome
+                self.driver = webdriver.Chrome(options=options)
         except Exception as e:
-            logger.warning(f"Failed to use webdriver_manager: {e}, trying standard path...")
-            self.driver = webdriver.Chrome(options=options)
+            logger.error(f"Failed to initialize Chrome: {e}")
+            self.error.emit(f"Không thể khởi động Chrome: {e}")
+            self.finished.emit()
+            return
+        
         logger.info(f"[WORKER] Browser started in sequential mode")
         
         submitted_count = 0
@@ -865,14 +1042,14 @@ class SubmissionWorker(QThread):
         self.finished.emit()
     
     def _run_parallel(self, count_int: int):
-        """🆕 Chạy submit song song (multiple tabs)"""
+        """🆕 Chạy submit song số (multiple tabs)"""
         import threading
         from queue import Queue
         
         options = webdriver.ChromeOptions()
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--headless")
+        # Parallel mode: use normal Chrome (not headless) for better stability with multiple threads
         options.add_argument("--disable-gpu")
         
         # Tạo queue chứa chỉ số response cần gửi
@@ -889,14 +1066,33 @@ class SubmissionWorker(QThread):
             driver = None
             try:
                 try:
+                    # Try with webdriver_manager first (auto-downloads matching chromedriver)
                     driver = webdriver.Chrome(
                         service=Service(ChromeDriverManager().install()),
                         options=options
                     )
-                except Exception as e:
-                    logger.warning(f"[THREAD {thread_id}] Failed to use webdriver_manager: {e}, trying standard path...")
-                    driver = webdriver.Chrome(options=options)
-                logger.info(f"[THREAD {thread_id}] Browser started")
+                except Exception as e1:
+                    logger.warning(f"[THREAD {thread_id}] webdriver_manager failed: {e1}")
+                    try:
+                        # Fallback: Use system Chrome without explicit driver path
+                        driver = webdriver.Chrome(options=options)
+                    except Exception as e2:
+                        logger.error(f"[THREAD {thread_id}] Both methods failed: {e2}")
+                        raise
+                
+                # 🆕 Set implicit wait to ensure elements can be found even if page is loading
+                driver.implicitly_wait(10)
+                
+                # 🆕 Position windows to avoid overlap
+                # Calculate window position based on thread_id
+                window_width = 960
+                window_height = 1080
+                x_position = (thread_id % 2) * window_width  # Alternate left/right
+                y_position = (thread_id // 2) * window_height  # Stack vertically
+                driver.set_window_size(window_width, window_height)
+                driver.set_window_position(x_position, y_position)
+                
+                logger.info(f"[THREAD {thread_id}] Browser started at position ({x_position}, {y_position})")
                 
                 while True:
                     try:
@@ -910,7 +1106,37 @@ class SubmissionWorker(QThread):
                         self.progress.emit(f"📮 [Tab {thread_id}] Gửi response {response_idx + 1}/{count_int}...")
                         
                         driver.get(self.form_url)
-                        time.sleep(2)
+                        
+                        # ⏳ Wait for form to fully load - check for form elements
+                        logger.info(f"[THREAD {thread_id}] Waiting for form to load...")
+                        wait_attempts = 0
+                        max_attempts = 10
+                        form_loaded = False
+                        while wait_attempts < max_attempts and not form_loaded:
+                            try:
+                                # Check for any question element
+                                questions = driver.find_elements(By.CLASS_NAME, "Qr7Oae")
+                                if len(questions) > 0:
+                                    logger.info(f"[THREAD {thread_id}] ✓ Form loaded (found {len(questions)} questions)")
+                                    form_loaded = True
+                                    break
+                                
+                                # Alternative check for viewform
+                                m7eme = driver.find_elements(By.CLASS_NAME, "M7eMe")
+                                if len(m7eme) > 0:
+                                    logger.info(f"[THREAD {thread_id}] ✓ Form loaded (found M7eMe elements)")
+                                    form_loaded = True
+                                    break
+                            except:
+                                pass
+                            
+                            wait_attempts += 1
+                            if not form_loaded:
+                                logger.debug(f"[THREAD {thread_id}] Waiting for form... attempt {wait_attempts}/{max_attempts}")
+                                time.sleep(1)
+                        
+                        if not form_loaded:
+                            logger.warning(f"[THREAD {thread_id}] Form may not be fully loaded, proceeding anyway...")
                         
                         logger.info(f"[THREAD {thread_id}] Filling form...")
                         self._fill_form_for_thread(driver)
@@ -936,159 +1162,25 @@ class SubmissionWorker(QThread):
             
             finally:
                 if driver:
-                    try:
-                        driver.quit()
-                        logger.info(f"[THREAD {thread_id}] Browser closed")
-                    except:
-                        pass
+                    driver.quit()
         
-        # Tạo và chạy threads
+        # 🆕 Tạo và chạy threads
         threads = []
-        logger.info(f"[WORKER] Creating {self.max_parallel} worker threads")
-        
-        for tid in range(self.max_parallel):
-            t = threading.Thread(target=worker_thread, args=(tid,), daemon=False)
+        for i in range(self.max_parallel):
+            t = threading.Thread(target=worker_thread, args=(i,))
+            t.daemon = False
             threads.append(t)
             t.start()
-            logger.info(f"[WORKER] Thread {tid} started")
+            logger.info(f"Started thread {i}")
         
-        # Đợi tất cả threads kết thúc
-        logger.info(f"[WORKER] Waiting for all threads to complete...")
+        # 🆕 Chờ tất cả threads hoàn thành
         for t in threads:
             t.join()
+            logger.info(f"Thread {t.name} completed")
         
-        logger.info(f"\n{'='*50}")
-        logger.info(f"[WORKER END] Parallel completed: submitted_count={submitted_count[0]}, total={count_int}")
-        logger.info(f"{'='*50}")
-        
-        if submitted_count[0] == count_int:
-            self.progress.emit(f"✅ Hoàn tất! Đã gửi {count_int} responses ({self.max_parallel} tabs parallel)")
-            logger.info(f"✅ Success: All {count_int} responses submitted!")
-        else:
-            logger.warning(f"⚠️ Only {submitted_count[0]}/{count_int} responses submitted")
-            self.progress.emit(f"⚠️ Chỉ gửi được {submitted_count[0]}/{count_int} responses")
-        
+        logger.info(f"✓ All {submitted_count[0]} responses submitted successfully")
+        self.progress.emit(f"✅ Hoàn tất! Đã gửi {submitted_count[0]} responses (Parallel)")
         self.finished.emit()
-    
-    def _fill_form(self):
-        """Điền form - hỗ trợ cả chế độ bình thường và random, tự động chuyển trang"""
-        logger.info(f"Starting to fill form with {len(self.answers)} answers (multi-page support)")
-        
-        page_number = 1
-        questions_filled = 0
-        form_question_index = 0  # Global index của câu hỏi trong self.questions
-        
-        while True:
-            logger.info(f"\n{'='*60}")
-            logger.info(f"FILLING PAGE {page_number}")
-            logger.info(f"{'='*60}")
-            
-            time.sleep(1)
-            
-            # Find all question elements on current page
-            question_elements = self.driver.find_elements(By.XPATH, "//div[@role='listitem']")
-            if len(question_elements) == 0:
-                # Fallback to old class name
-                question_elements = self.driver.find_elements(By.CLASS_NAME, "Qr7Oae")
-            
-            logger.info(f"Found {len(question_elements)} questions on page {page_number}")
-            
-            if len(question_elements) == 0:
-                logger.warning("No question elements found on this page - might be at end")
-                break
-            
-            # Fill all questions on current page
-            for local_idx, question_element in enumerate(question_elements):
-                try:
-                    # Get the real question index from self.questions
-                    idx = form_question_index
-                    
-                    # Skip if this question index is not in answers (page title or section header)
-                    if idx not in self.answers:
-                        logger.warning(f"Question {idx} not found in answers - skipping (probably page title/section header)")
-                        form_question_index += 1
-                        continue
-                    
-                    answer = self.answers[idx]
-                    q_type = self.questions[idx]['type']
-                    question_title = self.questions[idx]['title']
-                    
-                    # Handle random mode
-                    if isinstance(answer, tuple) and answer[0] == 'random':
-                        options_list = answer[1]
-                        selected_option = self._select_by_percentage(options_list)
-                        logger.info(f"Filling Q{idx + 1} ({q_type}): {question_title}")
-                        logger.info(f"  Random Mode - Selected: {selected_option}")
-                        self._select_option(question_element, selected_option)
-                    
-                    elif q_type == "short_answer" or q_type == "long_answer":
-                        logger.info(f"Filling Q{idx + 1} ({q_type}): {question_title}")
-                        logger.info(f"  Answer: {answer}")
-                        self._fill_text_field(question_element, str(answer))
-                    
-                    elif q_type in ["multiple_choice", "dropdown", "linear_scale"]:
-                        logger.info(f"Filling Q{idx + 1} ({q_type}): {question_title}")
-                        logger.info(f"  Answer: {answer}")
-                        self._select_option(question_element, str(answer))
-                    
-                    elif q_type == "checkbox":
-                        logger.info(f"Filling Q{idx + 1} ({q_type}): {question_title}")
-                        logger.info(f"  Answer: {answer}")
-                        if isinstance(answer, list):
-                            for option_text in answer:
-                                self._select_option(question_element, str(option_text))
-                        else:
-                            self._select_option(question_element, str(answer))
-                
-                    # Increment question index
-                    form_question_index += 1
-                    questions_filled += 1
-                    
-                except Exception as e:
-                    logger.warning(f"Error filling question {idx}: {e}", exc_info=True)
-                    form_question_index += 1
-            
-            # Check if we need to go to next page
-            logger.info(f"\nPage {page_number} filled - checking for next page button...")
-            time.sleep(1)
-            
-            # Look for "Tiếp" (Continue) button
-            next_button = None
-            continue_xpaths = [
-                ("//button//span[contains(text(), 'Tiếp')]", "Tiếp span in button"),
-                ("//button[contains(@aria-label, 'Tiếp')]", "Tiếp aria button"),
-                ("//div[@role='button']//span[contains(text(), 'Tiếp')]", "Tiếp in div button"),
-            ]
-            
-            for button_xpath, button_name in continue_xpaths:
-                try:
-                    buttons = self.driver.find_elements(By.XPATH, button_xpath)
-                    if buttons and len(buttons) > 0:
-                        next_button = buttons[0]
-                        logger.info(f"✓ Found next page button: {button_name}")
-                        break
-                except:
-                    pass
-            
-            if next_button:
-                try:
-                    logger.info(f"⏭️ Clicking 'Tiếp' button to go to page {page_number + 1}...")
-                    self.driver.execute_script("arguments[0].scrollIntoView(true);", next_button)
-                    time.sleep(0.5)
-                    next_button.click()
-                    time.sleep(2)  # Wait for page to load
-                    page_number += 1
-                    continue  # Go to next iteration
-                except Exception as e:
-                    logger.error(f"Error clicking next button: {e}")
-                    break
-            else:
-                logger.info("✓ No more 'Tiếp' buttons found - reached last page")
-                break
-        
-        logger.info(f"\n{'='*60}")
-        logger.info(f"✓ Form filling complete - filled {questions_filled} questions")
-        logger.info(f"{'='*60}\n")
     
     def _select_by_percentage(self, options_list: List[Dict]) -> str:
         """Chọn option dựa trên tỉ lệ phần trăm"""
@@ -1107,6 +1199,227 @@ class SubmissionWorker(QThread):
         logger.info(f"Random selection: {selected} (from {len(options_list)} options with percentages)")
         return selected
     
+    def _fill_form(self):
+        """Điền form - hỗ trợ chế độ bình thường và random, tự động chuyển trang"""
+        logger.info(f"Starting to fill form with {len(self.answers)} answers (multi-page support)")
+        
+        current_question_idx = 0
+        page_num = 1
+        
+        try:
+            while True:
+                logger.info(f"\n{'='*60}")
+                logger.info(f"FILLING PAGE {page_num}")
+                logger.info(f"{'='*60}")
+                
+                time.sleep(1)
+                
+                # Lấy câu hỏi trên trang hiện tại - try multiple selectors for both editor and viewform
+                question_elements = self.driver.find_elements(By.CLASS_NAME, "Qr7Oae")
+                logger.info(f"Selector 'Qr7Oae' found {len(question_elements)} questions")
+                
+                # If no questions found, try alternative selectors for viewform
+                if len(question_elements) == 0:
+                    logger.debug("Qr7Oae found 0, trying to find by span.M7eMe (question text container)...")
+                    # Find span elements with class M7eMe (question text in viewform)
+                    # Then get their parent containers which should be the actual question element
+                    question_text_elements = self.driver.find_elements(By.CLASS_NAME, "M7eMe")
+                    logger.info(f"Found {len(question_text_elements)} span.M7eMe elements")
+                    
+                    # Get parent containers of these question texts
+                    for span_elem in question_text_elements:
+                        try:
+                            # Go up to find the question container
+                            parent = span_elem.find_element(By.XPATH, "ancestor::div[@data-item-id or @role='listitem'][1]")
+                            if parent not in question_elements:
+                                question_elements.append(parent)
+                        except:
+                            # If no data-item-id parent, try getting a generic parent div
+                            try:
+                                parent = span_elem.find_element(By.XPATH, "ancestor::div[contains(@class, 'mKEK5c') or contains(@class, 'LMRjW')][1]")
+                                if parent not in question_elements:
+                                    question_elements.append(parent)
+                            except:
+                                pass
+                    
+                    logger.info(f"Found {len(question_elements)} question containers from span.M7eMe parents")
+                
+                if len(question_elements) == 0:
+                    logger.debug("Still found 0, trying data-item-id...")
+                    question_elements = self.driver.find_elements(By.XPATH, "//*[@data-item-id]")
+                    logger.info(f"Selector 'data-item-id' found {len(question_elements)} elements")
+                
+                if len(question_elements) == 0:
+                    logger.debug("data-item-id found 0, trying div[role='listitem']...")
+                    question_elements = self.driver.find_elements(By.XPATH, "//div[@role='listitem']")
+                    logger.info(f"Selector 'div[role=listitem]' found {len(question_elements)} elements")
+                
+                if len(question_elements) == 0:
+                    logger.debug("Nothing found yet, trying generic div with specific structure...")
+                    question_elements = self.driver.find_elements(By.XPATH, "//div[contains(@class, 'item-')]")
+                    logger.info(f"Selector 'class item-' found {len(question_elements)} elements")
+                
+                questions_on_page = []
+                
+                # Chỉ xử lý câu hỏi "hiển thị" trên trang này
+                for q_elem in question_elements:
+                    try:
+                        if q_elem.is_displayed():
+                            questions_on_page.append(q_elem)
+                    except:
+                        pass
+                
+                logger.info(f"Found {len(questions_on_page)} visible questions on page {page_num}")
+                
+                if len(questions_on_page) == 0:
+                    logger.warning("No visible questions found on this page - checking if last page...")
+                    # Maybe we're on the last page with the thank you message
+                    # Check if next button exists
+                    next_btn = self._find_next_button()
+                    if not next_btn:
+                        logger.info("✓ Confirmed: No next button - this is the last page")
+                        break
+                    else:
+                        logger.warning("Found next button even with no visible questions - clicking to continue...")
+                        self.driver.execute_script("arguments[0].scrollIntoView(true);", next_btn)
+                        time.sleep(0.5)
+                        next_btn.click()
+                        time.sleep(1.5)
+                        page_num += 1
+                        continue
+                
+                # Điền câu trả lời cho các câu hỏi trên trang này
+                for page_q_idx, q_element in enumerate(questions_on_page):
+                    question_idx = current_question_idx + page_q_idx
+                    
+                    # Skip nếu không có đáp án cho câu này
+                    if question_idx not in self.answers:
+                        logger.info(f"  Q{question_idx + 1}: Skipped (no answer)")
+                        continue
+                    
+                    try:
+                        answer = self.answers[question_idx]
+                        if question_idx >= len(self.questions):
+                            logger.warning(f"Question index {question_idx} exceeds questions list")
+                            continue
+                        
+                        question_data = self.questions[question_idx]
+                        q_type = question_data['type']
+                        q_title = question_data['title']
+                        
+                        logger.info(f"  Q{question_idx + 1} ({q_type}): {q_title}")
+                        logger.info(f"    Answer: {answer}")
+                        
+                        if q_type == "short_answer" or q_type == "long_answer":
+                            self._fill_text_field(q_element, str(answer))
+                            logger.info(f"    ✓ Filled text")
+                        
+                        elif q_type in ["multiple_choice", "dropdown", "linear_scale"]:
+                            if isinstance(answer, tuple) and answer[0] == 'random':
+                                options_list = answer[1]
+                                selected_option = self._select_by_percentage(options_list)
+                                logger.info(f"    Random Mode - Selected: {selected_option}")
+                                self._select_option(q_element, selected_option)
+                            else:
+                                self._select_option(q_element, str(answer))
+                            logger.info(f"    ✓ Selected option")
+                        
+                        elif q_type == "checkbox":
+                            if isinstance(answer, tuple) and answer[0] == 'random':
+                                options_list = answer[1]
+                                selected_options = self._select_multiple_by_percentage(options_list)
+                                logger.info(f"    Random Mode (Multiple) - Selected: {selected_options}")
+                                for option_text in selected_options:
+                                    self._select_option(q_element, option_text)
+                            else:
+                                if isinstance(answer, list):
+                                    for option_text in answer:
+                                        self._select_option(q_element, str(option_text))
+                                else:
+                                    self._select_option(q_element, str(answer))
+                            logger.info(f"    ✓ Selected checkboxes")
+                    
+                    except Exception as e:
+                        logger.error(f"  ✗ Error filling Q{question_idx}: {e}", exc_info=True)
+                
+                # Tìm nút "Tiếp" (Next button)
+                logger.info(f"\nPage {page_num} filled - looking for next button...")
+                time.sleep(0.5)
+                
+                next_btn = self._find_next_button()
+                
+                if next_btn:
+                    # Còn trang tiếp theo
+                    logger.info(f"  ⏭️ Found 'Tiếp' button - going to page {page_num + 1}...")
+                    self.driver.execute_script("arguments[0].scrollIntoView(true);", next_btn)
+                    time.sleep(0.5)
+                    next_btn.click()
+                    time.sleep(1.5)
+                    current_question_idx += len(questions_on_page)
+                    page_num += 1
+                else:
+                    # Trang cuối cùng - exit loop để gửi form
+                    logger.info(f"  ✓ No next button found - last page reached")
+                    break
+        
+        except Exception as e:
+            logger.error(f"Error filling form: {e}", exc_info=True)
+            raise
+        
+        logger.info(f"\n{'='*60}")
+        logger.info(f"✓ Form filling complete")
+        logger.info(f"{'='*60}\n")
+        
+        # 🆕 Gửi form sau khi điền xong
+        logger.info("Now submitting the form...")
+        self._submit_form()
+    
+    def _select_multiple_by_percentage(self, options_list):
+        """Chọn nhiều options theo xác suất"""
+        selected = []
+        for opt in options_list:
+            import random
+            if random.random() * 100 < opt['percentage']:
+                selected.append(opt['text'])
+        return selected if selected else [options_list[0]['text']] if options_list else []
+    
+    def _find_next_button(self):
+        """Tìm nút 'Tiếp' (Next button) - từ interactive_filler.py"""
+        try:
+            # Cách 1: Tìm button hoặc span có text "Tiếp" nhưng KHÔNG phải "Quay lại"
+            buttons = self.driver.find_elements(By.XPATH, "//button[contains(., 'Tiếp')] | //button[contains(., 'Next')] | //div[@role='button' and contains(text(), 'Tiếp')] | //div[@role='button' and contains(text(), 'Next')]")
+            if buttons and len(buttons) > 0:
+                for btn in buttons:
+                    try:
+                        btn_text = btn.text.strip() if btn.text else ""
+                        # Make sure it's not the back button and it IS displayed
+                        if btn.is_displayed() and "Quay lại" not in btn_text and "Tiếp" in btn_text:
+                            logger.info(f"Found next button: {btn_text}")
+                            return btn
+                    except:
+                        pass
+            
+            # Cách 2: Tìm với class "uArJ5e" (button class) - tìm "Tiếp" button specifically
+            buttons = self.driver.find_elements(By.CLASS_NAME, "uArJ5e")
+            for btn in buttons:
+                try:
+                    if btn.is_displayed():
+                        btn_text = btn.text.strip() if btn.text else ""
+                        aria_label = btn.get_attribute("aria-label") or ""
+                        # Kiểm tra nếu là nút tiếp (không phải back, không phải clear)
+                        if btn_text == "Tiếp" and "Quay lại" not in btn_text and "Xóa" not in btn_text:
+                            logger.info(f"Found next button (Tiếp): {btn_text}")
+                            return btn
+                        if "Tiếp" in aria_label and "Quay lại" not in aria_label:
+                            logger.info(f"Found next button by aria-label: {aria_label}")
+                            return btn
+                except:
+                    pass
+        except Exception as e:
+            logger.debug(f"Error finding next button: {e}")
+        
+        return None
+    
     def _fill_text_field(self, question_element, value: str):
         """Điền text field"""
         try:
@@ -1120,13 +1433,49 @@ class SubmissionWorker(QThread):
                     pass
             
             if input_field:
-                input_field.click()
                 input_field.clear()
                 input_field.send_keys(value)
-                time.sleep(0.5)
-        
+                time.sleep(0.3)
+                logger.debug(f"Filled text field with: {value}")
         except Exception as e:
             logger.warning(f"Error filling text field: {e}")
+    
+    def _select_option(self, question_element, option_text: str):
+        """Chọn option từ element - từ interactive_filler.py"""
+        try:
+            # Tìm option với text tương ứng
+            options = question_element.find_elements(By.CLASS_NAME, "YKDB3e")
+            
+            for option in options:
+                try:
+                    label = option.find_element(By.CLASS_NAME, "urLvsc")
+                    if label.text == option_text:
+                        option.click()
+                        time.sleep(0.3)
+                        logger.debug(f"Selected option: {option_text}")
+                        return
+                except:
+                    pass
+            
+            logger.warning(f"Could not find option: {option_text}")
+        
+        except Exception as e:
+            logger.warning(f"Error selecting option '{option_text}': {e}")
+    
+    def _select_by_percentage(self, options_list):
+        """Chọn một option theo xác suất"""
+        import random
+        total = sum(opt['percentage'] for opt in options_list)
+        if total == 0:
+            return options_list[0]['text'] if options_list else ""
+        
+        rand = random.uniform(0, total)
+        current = 0
+        for opt in options_list:
+            current += opt['percentage']
+            if rand <= current:
+                return opt['text']
+        return options_list[-1]['text'] if options_list else ""
     
     def _select_option(self, question_element, option_text: str):
         """Chọn option - try multiple methods"""
@@ -1215,30 +1564,62 @@ class SubmissionWorker(QThread):
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(2)
             
-            # Method 1: Find by unique class Y5sE8d (only submit button has this)
+            # DEBUG: Print all buttons on page first
             try:
-                submit_btn = self.driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'Y5sE8d')]")
-                logger.info(f"Found submit button by class Y5sE8d: '{submit_btn.text}'")
+                all_buttons = self.driver.find_elements(By.XPATH, "//*[@role='button' or self::button]")
+                logger.info(f"=== DEBUG: Found {len(all_buttons)} total button elements ===")
+                for i, btn in enumerate(all_buttons):
+                    try:
+                        btn_text = btn.text.strip()
+                        btn_class = btn.get_attribute('class') or ''
+                        btn_visible = btn.is_displayed()
+                        btn_tag = btn.tag_name
+                        logger.info(f"  [{i}] {btn_tag} | visible={btn_visible} | text='{btn_text}' | class='{btn_class}'")
+                    except:
+                        pass
             except Exception as e:
-                logger.debug(f"Method 1 (Y5sE8d) error: {e}")
+                logger.debug(f"Debug listing error: {e}")
             
-            # Method 2: Find by class QvWxOd (submit button specific)
+            # Method 1: Find button by text "Gửi" (Vietnamese for Submit) - PRIORITIZE THIS
+            try:
+                submit_btn = self.driver.find_element(By.XPATH, "//*[@role='button' and contains(., 'Gửi')]")
+                logger.info(f"Found submit button by text 'Gửi': '{submit_btn.text}'")
+            except Exception as e:
+                logger.debug(f"Method 1 (text 'Gửi') error: {e}")
+            
+            # Method 2: Find button by text "Submit"
+            if not submit_btn:
+                try:
+                    submit_btn = self.driver.find_element(By.XPATH, "//*[@role='button' and contains(., 'Submit')]")
+                    logger.info(f"Found submit button by text 'Submit': '{submit_btn.text}'")
+                except Exception as e:
+                    logger.debug(f"Method 2 (text 'Submit') error: {e}")
+            
+            # Method 3: Find by unique class Y5sE8d (only submit button has this)
+            if not submit_btn:
+                try:
+                    submit_btn = self.driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'Y5sE8d')]")
+                    logger.info(f"Found submit button by class Y5sE8d: '{submit_btn.text}'")
+                except Exception as e:
+                    logger.debug(f"Method 3 (Y5sE8d) error: {e}")
+            
+            # Method 4: Find by class QvWxOd (submit button specific)
             if not submit_btn:
                 try:
                     submit_btn = self.driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'QvWxOd')]")
                     logger.info(f"Found submit button by class QvWxOd: '{submit_btn.text}'")
                 except Exception as e:
-                    logger.debug(f"Method 2 (QvWxOd) error: {e}")
+                    logger.debug(f"Method 4 (QvWxOd) error: {e}")
             
-            # Method 3: Find by all unique classes together
+            # Method 5: Find by all unique classes together
             if not submit_btn:
                 try:
                     submit_btn = self.driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'uArJ5e') and contains(@class, 'Y5sE8d') and contains(@class, 'QvWxOd')]")
                     logger.info(f"Found submit button by combined classes: '{submit_btn.text}'")
                 except Exception as e:
-                    logger.debug(f"Method 3 (combined) error: {e}")
+                    logger.debug(f"Method 5 (combined) error: {e}")
             
-            # Method 4: Find the second displayed uArJ5e div (first is clear, second is submit)
+            # Method 6: Find uArJ5e button that is NOT "Quay lại", NOT "Xóa", NOT empty, NOT "Tiếp"
             if not submit_btn:
                 try:
                     uarj5e_divs = self.driver.find_elements(By.XPATH, "//div[@role='button' and contains(@class, 'uArJ5e')]")
@@ -1247,12 +1628,13 @@ class SubmissionWorker(QThread):
                         is_displayed = div.is_displayed()
                         div_text = div.text.strip()
                         logger.debug(f"  [{i}] displayed={is_displayed}, text='{div_text}'")
-                        if is_displayed and div_text and div_text not in ['Xóa hết câu trả lời', 'Clear']:
+                        # Only accept if: displayed AND has text AND NOT back/clear/next buttons
+                        if is_displayed and div_text and div_text not in ['Xóa hết câu trả lời', 'Clear', 'Tiếp', 'Quay lại', 'Next', 'Back']:
                             submit_btn = div
                             logger.info(f"Found submit button (uArJ5e): '{div_text}'")
                             break
                 except Exception as e:
-                    logger.debug(f"Method 4 (uArJ5e loop) error: {e}")
+                    logger.debug(f"Method 6 (uArJ5e loop) error: {e}")
             
             if submit_btn:
                 # Scroll to make sure it's visible
@@ -1273,13 +1655,16 @@ class SubmissionWorker(QThread):
                 time.sleep(3)
                 logger.info("✓ Form submitted successfully")
             else:
-                logger.error("❌ Could not find submit button")
-                # Debug: list all divs with role=button
+                logger.error("❌ Could not find submit button - will NOT submit form")
+                # Extended debug info
                 try:
                     all_role_buttons = self.driver.find_elements(By.XPATH, "//*[@role='button']")
                     logger.error(f"All role=button elements ({len(all_role_buttons)}):")
                     for i, btn in enumerate(all_role_buttons):
-                        logger.error(f"  [{i}] text='{btn.text}' | class='{btn.get_attribute('class')}' | displayed={btn.is_displayed()}")
+                        try:
+                            logger.error(f"  [{i}] text='{btn.text}' | class='{btn.get_attribute('class')}' | displayed={btn.is_displayed()}")
+                        except:
+                            pass
                 except Exception as e:
                     logger.error(f"Error listing buttons: {e}")
         
@@ -1298,11 +1683,60 @@ class SubmissionWorker(QThread):
             logger.info(f"FILLING PAGE {page_number} (thread-safe)")
             logger.info(f"{'='*60}")
             
-            time.sleep(1)
+            # Wait for page to load - wait for either Qr7Oae or M7eMe elements
+            time.sleep(2)  # Initial wait for page load
+            wait_attempts = 0
+            max_wait_attempts = 5
+            while wait_attempts < max_wait_attempts:
+                question_check = driver.find_elements(By.CLASS_NAME, "Qr7Oae")
+                if len(question_check) > 0:
+                    logger.debug(f"Page loaded, found questions with Qr7Oae")
+                    break
+                question_check = driver.find_elements(By.CLASS_NAME, "M7eMe")
+                if len(question_check) > 0:
+                    logger.debug(f"Page loaded, found question text with M7eMe")
+                    break
+                wait_attempts += 1
+                if wait_attempts < max_wait_attempts:
+                    logger.debug(f"Waiting for questions to load... (attempt {wait_attempts})")
+                    time.sleep(1)
             
-            # Find all question elements on current page
-            question_elements = driver.find_elements(By.XPATH, "//div[@role='listitem']")
-            if len(question_elements) == 0:
+            # Find all question elements on current page - try multiple selectors for both editor and viewform
+            try:
+                question_elements = driver.find_elements(By.CLASS_NAME, "Qr7Oae")
+                logger.debug(f"Selector 'Qr7Oae' found {len(question_elements)} questions")
+                
+                # If no questions found, try alternative selectors for viewform
+                if len(question_elements) == 0:
+                    logger.debug("Qr7Oae found 0, trying to find by span.M7eMe (question text container)...")
+                    # Find span elements with class M7eMe (question text in viewform)
+                    question_text_elements = driver.find_elements(By.CLASS_NAME, "M7eMe")
+                    logger.debug(f"Found {len(question_text_elements)} span.M7eMe elements")
+                    
+                    # Get parent containers of these question texts
+                    for span_elem in question_text_elements:
+                        try:
+                            parent = span_elem.find_element(By.XPATH, "ancestor::div[@data-item-id or @role='listitem'][1]")
+                            if parent not in question_elements:
+                                question_elements.append(parent)
+                        except:
+                            try:
+                                parent = span_elem.find_element(By.XPATH, "ancestor::div[contains(@class, 'mKEK5c') or contains(@class, 'LMRjW')][1]")
+                                if parent not in question_elements:
+                                    question_elements.append(parent)
+                            except:
+                                pass
+                    
+                    logger.debug(f"Found {len(question_elements)} question containers from span.M7eMe parents")
+                
+                if len(question_elements) == 0:
+                    logger.debug("Still found 0, trying data-item-id...")
+                    question_elements = driver.find_elements(By.XPATH, "//*[@data-item-id]")
+                
+                if len(question_elements) == 0:
+                    logger.debug("data-item-id found 0, trying div[role='listitem']...")
+                    question_elements = driver.find_elements(By.XPATH, "//div[@role='listitem']")
+            except:
                 question_elements = driver.find_elements(By.CLASS_NAME, "Qr7Oae")
             
             logger.info(f"Found {len(question_elements)} questions on page {page_number}")
@@ -1402,8 +1836,12 @@ class SubmissionWorker(QThread):
                 break
         
         logger.info(f"\n{'='*60}")
-        logger.info(f"✓ Form filling complete - filled {questions_filled} questions")
+        logger.info(f"✓ Form filling complete")
         logger.info(f"{'='*60}\n")
+        
+        # 🆕 Gửi form sau khi điền xong
+        logger.info("Now submitting the form (thread-safe)...")
+        self._submit_form_for_thread(driver)
     
     def _fill_text_field_for_thread(self, driver, question_element, value: str):
         """🆕 Điền text field - thread-safe"""
@@ -1505,17 +1943,61 @@ class SubmissionWorker(QThread):
             logger.info("Looking for submit button...")
             submit_btn = None
             
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(2)
+            # Create WebDriverWait with longer timeout for parallel operations
+            wait = WebDriverWait(driver, timeout=15)
             
-            # Method 1: Find by unique class Y5sE8d
+            # ⏳ Wait for any button to be clickable - sign that page is interactive
             try:
-                submit_btn = driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'Y5sE8d')]")
-                logger.info(f"Found submit button by class Y5sE8d")
+                logger.info("⏳ Waiting for page to be interactive...")
+                wait.until(EC.presence_of_all_elements_located((By.XPATH, "//*[@role='button']")))
+                logger.info("✓ Page is interactive")
+            except:
+                logger.warning("Timeout waiting for buttons, continuing anyway...")
+            
+            # Scroll to bottom to ensure submit button is visible
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(1)
+            
+            # DEBUG: Print all buttons on page first
+            try:
+                all_buttons = driver.find_elements(By.XPATH, "//*[@role='button' or self::button]")
+                logger.info(f"=== DEBUG (thread): Found {len(all_buttons)} total button elements ===")
+                for i, btn in enumerate(all_buttons):
+                    try:
+                        btn_text = btn.text.strip()
+                        btn_class = btn.get_attribute('class') or ''
+                        btn_visible = btn.is_displayed()
+                        btn_tag = btn.tag_name
+                        logger.info(f"  [{i}] {btn_tag} | visible={btn_visible} | text='{btn_text}' | class='{btn_class}'")
+                    except:
+                        pass
+            except Exception as e:
+                logger.debug(f"Debug listing error: {e}")
+            
+            # Method 1: Find button by text "Gửi" (Vietnamese for Submit) - PRIORITIZE THIS
+            try:
+                submit_btn = driver.find_element(By.XPATH, "//*[@role='button' and contains(., 'Gửi')]")
+                logger.info(f"Found submit button by text 'Gửi'")
             except:
                 pass
             
-            # Method 2: Find by class QvWxOd
+            # Method 2: Find button by text "Submit"
+            if not submit_btn:
+                try:
+                    submit_btn = driver.find_element(By.XPATH, "//*[@role='button' and contains(., 'Submit')]")
+                    logger.info(f"Found submit button by text 'Submit'")
+                except:
+                    pass
+            
+            # Method 3: Find by unique class Y5sE8d
+            if not submit_btn:
+                try:
+                    submit_btn = driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'Y5sE8d')]")
+                    logger.info(f"Found submit button by class Y5sE8d")
+                except:
+                    pass
+            
+            # Method 4: Find by class QvWxOd
             if not submit_btn:
                 try:
                     submit_btn = driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'QvWxOd')]")
@@ -1523,7 +2005,7 @@ class SubmissionWorker(QThread):
                 except:
                     pass
             
-            # Method 3: Find by combined classes
+            # Method 5: Find by combined classes
             if not submit_btn:
                 try:
                     submit_btn = driver.find_element(By.XPATH, "//div[@role='button' and contains(@class, 'uArJ5e') and contains(@class, 'Y5sE8d') and contains(@class, 'QvWxOd')]")
@@ -1531,34 +2013,50 @@ class SubmissionWorker(QThread):
                 except:
                     pass
             
-            # Method 4: Find second uArJ5e div
+            # Method 6: Find uArJ5e button that is NOT "Quay lại", NOT "Xóa", NOT "Tiếp", etc
             if not submit_btn:
                 try:
                     uarj5e_divs = driver.find_elements(By.XPATH, "//div[@role='button' and contains(@class, 'uArJ5e')]")
                     for i, div in enumerate(uarj5e_divs):
                         is_displayed = div.is_displayed()
                         div_text = div.text.strip()
-                        if is_displayed and div_text and div_text not in ['Xóa hết câu trả lời', 'Clear']:
+                        # Only accept if displayed AND has text AND NOT navigation buttons
+                        if is_displayed and div_text and div_text not in ['Xóa hết câu trả lời', 'Clear', 'Tiếp', 'Quay lại', 'Next', 'Back']:
                             submit_btn = div
-                            logger.info(f"Found submit button (uArJ5e)")
+                            logger.info(f"Found submit button (uArJ5e): '{div_text}'")
                             break
                 except:
                     pass
             
             if submit_btn:
                 try:
+                    # Try to wait for button to be clickable
+                    wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@role='button' and contains(., 'Gửi')] | //*[@role='button' and contains(., 'Submit')]")))
+                except:
+                    logger.debug("Timeout waiting for button to be clickable, clicking anyway...")
+                
+                try:
+                    # Scroll element into view before clicking
+                    driver.execute_script("arguments[0].scrollIntoView(true);", submit_btn)
+                    time.sleep(0.5)
                     driver.execute_script("arguments[0].click();", submit_btn)
                     logger.info(f"✓ Clicked submit button via JS")
                 except:
-                    submit_btn.click()
-                    logger.info(f"✓ Clicked submit button")
+                    try:
+                        submit_btn.click()
+                        logger.info(f"✓ Clicked submit button")
+                    except Exception as e:
+                        logger.warning(f"Failed to click submit: {e}, trying JS again...")
+                        driver.execute_script("arguments[0].click();", submit_btn)
+                        logger.info(f"✓ Clicked via JS (retry)")
                 
                 time.sleep(3)
             else:
-                logger.error("❌ Could not find submit button")
+                logger.error("❌ Could not find submit button - will NOT submit form")
         
         except Exception as e:
             logger.error(f"Error submitting form: {e}", exc_info=True)
+
 
 
 class GoogleFormFillerApp(QMainWindow):
