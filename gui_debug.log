@@ -1,0 +1,392 @@
+2026-01-29 23:05:26.102 Python[82538:3140086] error messaging the mach port for IMKCFRunLoopWakeUpReliable
+2026-01-29 23:05:28,113 - INFO - Loading form: https://docs.google.com/forms/d/1aysm61PsdT-m0hLwYHaO0rD4SR0dnLV-xCca5B_FeTo/edit?hl=vi
+2026-01-29 23:05:28,114 - INFO - Is editor link: True
+2026-01-29 23:05:28,115 - INFO - ====== WebDriver manager ======
+2026-01-29 23:05:28,575 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-29 23:05:28,984 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-29 23:05:29,427 - INFO - Driver [/Users/2apple_mgn_63_ram16/.wdm/drivers/chromedriver/mac64/144.0.7559.109/chromedriver-mac-arm64/chromedriver] found in cache
+2026-01-29 23:05:31,605 - INFO - Waiting for form to load...
+2026-01-29 23:05:39,094 - INFO - ✓ ViewForm URL confirmed: https://docs.google.com/forms/d/e/1FAIpQLSc6tIW9LZKDOqZEVAAJkV4I53geEL2f_F_Bq1ygc0DOM35XMw/viewform
+2026-01-29 23:05:39,611 - INFO - ✓ Editor link detected - extracting all questions from single page
+2026-01-29 23:05:39,612 - INFO - 
+============================================================
+2026-01-29 23:05:39,612 - INFO - EXTRACTING FROM EDITOR LINK (Single Page)
+2026-01-29 23:05:39,612 - INFO - ============================================================
+2026-01-29 23:05:42,650 - INFO - Found 12 .editable divs total
+2026-01-29 23:05:42,979 - INFO - Processing 5 items (questions + sections)
+2026-01-29 23:05:43,018 - INFO - Question 1: tôi muốn (multiple_choice) - 4 options
+2026-01-29 23:05:43,086 - INFO - Question 2: tôi không muốn (multiple_choice) - 4 options
+2026-01-29 23:05:43,086 - INFO -   📌 Section header: 'Mục không có tiêu đề'
+2026-01-29 23:05:43,121 - INFO - Question 4: đi chơi không (multiple_choice) - 4 options
+2026-01-29 23:05:43,152 - INFO - Question 5: không đi à (multiple_choice) - 4 options
+2026-01-29 23:05:43,152 - INFO - 
+============================================================
+2026-01-29 23:05:43,152 - INFO - ✓ EXTRACTION COMPLETE
+2026-01-29 23:05:43,152 - INFO - Total questions: 5
+2026-01-29 23:05:43,152 - INFO - ============================================================
+2026-01-29 23:05:43,152 - INFO - ALL EXTRACTED QUESTIONS:
+2026-01-29 23:05:43,152 - INFO -   Q1 (idx=0): tôi muốn | type=multiple_choice | is_page_title=False | required=False
+2026-01-29 23:05:43,152 - INFO -   Q2 (idx=1): tôi không muốn | type=multiple_choice | is_page_title=False | required=False
+2026-01-29 23:05:43,152 - INFO -   Q3 (idx=2): Mục không có tiêu đề | type=section_header | is_page_title=True | required=False
+2026-01-29 23:05:43,152 - INFO -   Q4 (idx=3): đi chơi không | type=multiple_choice | is_page_title=False | required=False
+2026-01-29 23:05:43,152 - INFO -   Q5 (idx=4): không đi à | type=multiple_choice | is_page_title=False | required=False
+2026-01-29 23:05:43,152 - INFO - ============================================================
+
+2026-01-29 23:05:43,158 - INFO - [createAnswerInputs] START - Creating UI for 5 questions
+2026-01-29 23:05:43,158 - INFO - [createAnswerInputs] Q0: type=multiple_choice, is_page_title=False, title=tôi muốn
+2026-01-29 23:05:43,161 - INFO - [createAnswerInputs] Widget created for Q0 with widget_key=0
+2026-01-29 23:05:43,161 - INFO - [createAnswerInputs] Q1: type=multiple_choice, is_page_title=False, title=tôi không muốn
+2026-01-29 23:05:43,162 - INFO - [createAnswerInputs] Widget created for Q1 with widget_key=1
+2026-01-29 23:05:43,162 - INFO - [createAnswerInputs] Q2: type=section_header, is_page_title=True, title=Mục không có tiêu đề
+2026-01-29 23:05:43,162 - INFO - [createAnswerInputs] Q3: type=multiple_choice, is_page_title=False, title=đi chơi không
+2026-01-29 23:05:43,163 - INFO - [createAnswerInputs] Widget created for Q3 with widget_key=3
+2026-01-29 23:05:43,163 - INFO - [createAnswerInputs] Q4: type=multiple_choice, is_page_title=False, title=không đi à
+2026-01-29 23:05:43,163 - INFO - [createAnswerInputs] Widget created for Q4 with widget_key=4
+2026-01-29 23:05:43,163 - INFO - [createAnswerInputs] DONE - Created 4 widgets with keys: [0, 1, 3, 4]
+2026-01-29 23:06:16,657 - INFO - Random mode toggled: True
+2026-01-29 23:06:16,659 - INFO - [createAnswerInputs] START - Creating UI for 5 questions
+2026-01-29 23:06:16,659 - INFO - [createAnswerInputs] Q0: type=multiple_choice, is_page_title=False, title=tôi muốn
+2026-01-29 23:06:16,663 - INFO - [createAnswerInputs] Widget created for Q0 with widget_key=0
+2026-01-29 23:06:16,663 - INFO - [createAnswerInputs] Q1: type=multiple_choice, is_page_title=False, title=tôi không muốn
+2026-01-29 23:06:16,666 - INFO - [createAnswerInputs] Widget created for Q1 with widget_key=1
+2026-01-29 23:06:16,666 - INFO - [createAnswerInputs] Q2: type=section_header, is_page_title=True, title=Mục không có tiêu đề
+2026-01-29 23:06:16,666 - INFO - [createAnswerInputs] Q3: type=multiple_choice, is_page_title=False, title=đi chơi không
+2026-01-29 23:06:16,669 - INFO - [createAnswerInputs] Widget created for Q3 with widget_key=3
+2026-01-29 23:06:16,669 - INFO - [createAnswerInputs] Q4: type=multiple_choice, is_page_title=False, title=không đi à
+2026-01-29 23:06:16,671 - INFO - [createAnswerInputs] Widget created for Q4 with widget_key=4
+2026-01-29 23:06:16,671 - INFO - [createAnswerInputs] DONE - Created 4 widgets with keys: [0, 1, 3, 4]
+2026-01-29 23:06:44,287 - INFO - [CONFIRM] User clicked Confirm Answers button
+2026-01-29 23:06:44,290 - INFO - [getAnswersFromWidgets] answer_widgets keys (real question indices): [0, 1, 3, 4]
+2026-01-29 23:06:44,290 - INFO - [getAnswersFromWidgets] Processing Q0: type=tuple
+2026-01-29 23:06:44,291 - INFO - [getAnswersFromWidgets] Processing Q1: type=tuple
+2026-01-29 23:06:44,291 - INFO - [getAnswersFromWidgets] Processing Q3: type=tuple
+2026-01-29 23:06:44,291 - INFO - [getAnswersFromWidgets] Processing Q4: type=tuple
+2026-01-29 23:06:44,291 - INFO - [ANSWERS] Extracted 4 answers from 4 widgets
+2026-01-29 23:06:44,291 - INFO -   Q0: ('random', [{'text': 'a', 'percentage': 50}, {'tex
+2026-01-29 23:06:44,291 - INFO -   Q1: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:06:44,291 - INFO -   Q3: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:06:44,291 - INFO -   Q4: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:06:45,631 - INFO - [CONFIRM] Saved 4 answers successfully
+2026-01-29 23:07:07,737 - INFO - [SUBMIT] Question structure: total=5, section_headers=1, real_questions=4
+2026-01-29 23:07:07,738 - INFO -   Q0: 'tôi muốn' - type=multiple_choice, is_page_title=False
+2026-01-29 23:07:07,738 - INFO -   Q1: 'tôi không muốn' - type=multiple_choice, is_page_title=False
+2026-01-29 23:07:07,738 - INFO -   Q2: 'Mục không có tiêu đề' - type=section_header, is_page_title=True
+2026-01-29 23:07:07,738 - INFO -   Q3: 'đi chơi không' - type=multiple_choice, is_page_title=False
+2026-01-29 23:07:07,738 - INFO -   Q4: 'không đi à' - type=multiple_choice, is_page_title=False
+2026-01-29 23:07:07,738 - INFO - [SUBMIT] Using confirmed answers: 4 answers
+2026-01-29 23:07:07,738 - INFO -   Answer for Q0: random(...)
+2026-01-29 23:07:07,738 - INFO -   Answer for Q1: random(...)
+2026-01-29 23:07:07,738 - INFO -   Answer for Q3: random(...)
+2026-01-29 23:07:07,739 - INFO -   Answer for Q4: random(...)
+2026-01-29 23:07:07,739 - INFO - [SUBMIT] count_spinbox.value() = 5, max_parallel = 2
+2026-01-29 23:07:07,743 - INFO - [SUBMIT] Creating SubmissionWorker with count=5, max_parallel=2
+2026-01-29 23:07:07,743 - INFO - [SUBMIT] Using ViewForm URL: https://docs.google.com/forms/d/e/1FAIpQLSc6tIW9LZKDOqZEVAAJkV4I53geEL2f_F_Bq1ygc0DOM35XMw/viewform
+2026-01-29 23:07:07,744 - INFO - [SUBMIT] Starting worker thread
+2026-01-29 23:07:07,744 - INFO - [SUBMIT] Worker thread started
+2026-01-29 23:07:07,744 - INFO - [WORKER START] count=5, max_parallel=2
+2026-01-29 23:07:07,744 - INFO - [WORKER] Running in PARALLEL mode (2 tabs)
+2026-01-29 23:07:07,745 - INFO - ====== WebDriver manager ======
+2026-01-29 23:07:07,746 - INFO - Started thread 0
+2026-01-29 23:07:07,750 - INFO - ====== WebDriver manager ======
+2026-01-29 23:07:07,753 - INFO - Started thread 1
+2026-01-29 23:07:08,309 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-29 23:07:08,420 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-29 23:07:08,682 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-29 23:07:08,741 - INFO - Get LATEST chromedriver version for google-chrome
+2026-01-29 23:07:09,047 - INFO - Driver [/Users/2apple_mgn_63_ram16/.wdm/drivers/chromedriver/mac64/144.0.7559.109/chromedriver-mac-arm64/chromedriver] found in cache
+2026-01-29 23:07:09,095 - INFO - Driver [/Users/2apple_mgn_63_ram16/.wdm/drivers/chromedriver/mac64/144.0.7559.109/chromedriver-mac-arm64/chromedriver] found in cache
+2026-01-29 23:07:10,517 - INFO - [THREAD 1] Browser started
+2026-01-29 23:07:10,558 - INFO - [THREAD 1] Processing response 1/5
+2026-01-29 23:07:10,669 - INFO - [THREAD 0] Browser started
+2026-01-29 23:07:10,669 - INFO - [THREAD 0] Processing response 2/5
+2026-01-29 23:07:13,953 - INFO - [THREAD 1] Filling form...
+2026-01-29 23:07:13,953 - INFO - Starting to fill form with 4 answers (thread-safe, multi-page)
+2026-01-29 23:07:13,953 - INFO - Answer keys (real question indices): [0, 1, 3, 4]
+2026-01-29 23:07:13,953 - INFO - Real question indices: [0, 1, 3, 4]
+2026-01-29 23:07:13,953 - INFO - 
+============================================================
+2026-01-29 23:07:13,953 - INFO - FILLING PAGE 1 (thread-safe)
+2026-01-29 23:07:13,954 - INFO - ============================================================
+2026-01-29 23:07:14,837 - INFO - [THREAD 0] Filling form...
+2026-01-29 23:07:14,837 - INFO - Starting to fill form with 4 answers (thread-safe, multi-page)
+2026-01-29 23:07:14,837 - INFO - Answer keys (real question indices): [0, 1, 3, 4]
+2026-01-29 23:07:14,837 - INFO - Real question indices: [0, 1, 3, 4]
+2026-01-29 23:07:14,837 - INFO - 
+============================================================
+2026-01-29 23:07:14,837 - INFO - FILLING PAGE 1 (thread-safe)
+2026-01-29 23:07:14,837 - INFO - ============================================================
+2026-01-29 23:07:14,972 - INFO - Found 2 questions on page 1
+2026-01-29 23:07:14,972 - INFO - Filling Q0 (multiple_choice): tôi muốn
+2026-01-29 23:07:14,972 - INFO -   Answer: ('random', [{'text': 'a', 'percentage': 50}, {'tex
+2026-01-29 23:07:14,972 - INFO - Random Mode - Selected: a
+2026-01-29 23:07:15,092 - INFO - ✓ Clicked span: a
+2026-01-29 23:07:15,595 - INFO - Filling Q1 (multiple_choice): tôi không muốn
+2026-01-29 23:07:15,595 - INFO -   Answer: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:07:15,595 - INFO - Random Mode - Selected: Tùy chọn 1
+2026-01-29 23:07:15,659 - INFO - ✓ Clicked span: Tùy chọn 1
+2026-01-29 23:07:15,859 - INFO - Found 2 questions on page 1
+2026-01-29 23:07:15,859 - INFO - Filling Q0 (multiple_choice): tôi muốn
+2026-01-29 23:07:15,859 - INFO -   Answer: ('random', [{'text': 'a', 'percentage': 50}, {'tex
+2026-01-29 23:07:15,859 - INFO - Random Mode - Selected: a
+2026-01-29 23:07:15,949 - INFO - ✓ Clicked span: a
+2026-01-29 23:07:16,162 - INFO - 
+Page 1 filled - checking for next page button...
+2026-01-29 23:07:16,455 - INFO - Filling Q1 (multiple_choice): tôi không muốn
+2026-01-29 23:07:16,455 - INFO -   Answer: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:07:16,455 - INFO - Random Mode - Selected: Tùy chọn 1
+2026-01-29 23:07:16,516 - INFO - ✓ Clicked span: Tùy chọn 1
+2026-01-29 23:07:17,021 - INFO - 
+Page 1 filled - checking for next page button...
+2026-01-29 23:07:17,192 - INFO - ✓ Found next page button: Tiếp in div button
+2026-01-29 23:07:17,192 - INFO - ⏭️ Clicking 'Tiếp' button to go to page 2...
+2026-01-29 23:07:18,055 - INFO - ✓ Found next page button: Tiếp in div button
+2026-01-29 23:07:18,055 - INFO - ⏭️ Clicking 'Tiếp' button to go to page 2...
+2026-01-29 23:07:19,748 - INFO - 
+============================================================
+2026-01-29 23:07:19,748 - INFO - FILLING PAGE 2 (thread-safe)
+2026-01-29 23:07:19,749 - INFO - ============================================================
+2026-01-29 23:07:20,623 - INFO - 
+============================================================
+2026-01-29 23:07:20,624 - INFO - FILLING PAGE 2 (thread-safe)
+2026-01-29 23:07:20,624 - INFO - ============================================================
+2026-01-29 23:07:20,774 - INFO - Found 3 questions on page 2
+2026-01-29 23:07:20,774 - INFO - Filling Q3 (multiple_choice): đi chơi không
+2026-01-29 23:07:20,774 - INFO -   Answer: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:07:20,774 - INFO - Random Mode - Selected: Tùy chọn 2
+2026-01-29 23:07:20,800 - INFO - Filling Q4 (multiple_choice): không đi à
+2026-01-29 23:07:20,800 - INFO -   Answer: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:07:20,800 - INFO - Random Mode - Selected: Tùy chọn 1
+2026-01-29 23:07:20,888 - INFO - ✓ Clicked span: Tùy chọn 1
+2026-01-29 23:07:21,394 - WARNING - Filled more questions than available
+2026-01-29 23:07:21,394 - INFO - 
+Page 2 filled - checking for next page button...
+2026-01-29 23:07:21,642 - INFO - Found 3 questions on page 2
+2026-01-29 23:07:21,642 - INFO - Filling Q3 (multiple_choice): đi chơi không
+2026-01-29 23:07:21,642 - INFO -   Answer: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:07:21,642 - INFO - Random Mode - Selected: Tùy chọn 2
+2026-01-29 23:07:21,670 - INFO - Filling Q4 (multiple_choice): không đi à
+2026-01-29 23:07:21,670 - INFO -   Answer: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:07:21,670 - INFO - Random Mode - Selected: Tùy chọn 1
+2026-01-29 23:07:21,743 - INFO - ✓ Clicked span: Tùy chọn 1
+2026-01-29 23:07:22,247 - WARNING - Filled more questions than available
+2026-01-29 23:07:22,247 - INFO - 
+Page 2 filled - checking for next page button...
+2026-01-29 23:07:22,416 - INFO - ✓ No more 'Tiếp' buttons found - reached last page
+2026-01-29 23:07:22,416 - INFO - 
+============================================================
+2026-01-29 23:07:22,416 - ERROR - [THREAD 1] Error: name 'filled_real_questions' is not defined
+Traceback (most recent call last):
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1085, in worker_thread
+    self._fill_form_for_thread(driver)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1656, in _fill_form_for_thread
+    logger.info(f"✓ Form filling complete - filled {filled_real_questions}/{len(real_question_indices)} questions")
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'filled_real_questions' is not defined
+2026-01-29 23:07:22,421 - INFO - [THREAD 1] Processing response 3/5
+2026-01-29 23:07:23,276 - INFO - ✓ No more 'Tiếp' buttons found - reached last page
+2026-01-29 23:07:23,277 - INFO - 
+============================================================
+2026-01-29 23:07:23,277 - ERROR - [THREAD 0] Error: name 'filled_real_questions' is not defined
+Traceback (most recent call last):
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1085, in worker_thread
+    self._fill_form_for_thread(driver)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1656, in _fill_form_for_thread
+    logger.info(f"✓ Form filling complete - filled {filled_real_questions}/{len(real_question_indices)} questions")
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'filled_real_questions' is not defined
+2026-01-29 23:07:23,278 - INFO - [THREAD 0] Processing response 4/5
+2026-01-29 23:07:25,719 - INFO - [THREAD 1] Filling form...
+2026-01-29 23:07:25,721 - INFO - Starting to fill form with 4 answers (thread-safe, multi-page)
+2026-01-29 23:07:25,722 - INFO - Answer keys (real question indices): [0, 1, 3, 4]
+2026-01-29 23:07:25,722 - INFO - Real question indices: [0, 1, 3, 4]
+2026-01-29 23:07:25,722 - INFO - 
+============================================================
+2026-01-29 23:07:25,722 - INFO - FILLING PAGE 1 (thread-safe)
+2026-01-29 23:07:25,722 - INFO - ============================================================
+2026-01-29 23:07:26,409 - INFO - [THREAD 0] Filling form...
+2026-01-29 23:07:26,409 - INFO - Starting to fill form with 4 answers (thread-safe, multi-page)
+2026-01-29 23:07:26,409 - INFO - Answer keys (real question indices): [0, 1, 3, 4]
+2026-01-29 23:07:26,409 - INFO - Real question indices: [0, 1, 3, 4]
+2026-01-29 23:07:26,409 - INFO - 
+============================================================
+2026-01-29 23:07:26,409 - INFO - FILLING PAGE 1 (thread-safe)
+2026-01-29 23:07:26,409 - INFO - ============================================================
+2026-01-29 23:07:26,746 - INFO - Found 2 questions on page 1
+2026-01-29 23:07:26,746 - INFO - Filling Q0 (multiple_choice): tôi muốn
+2026-01-29 23:07:26,746 - INFO -   Answer: ('random', [{'text': 'a', 'percentage': 50}, {'tex
+2026-01-29 23:07:26,746 - INFO - Random Mode - Selected: a
+2026-01-29 23:07:26,843 - INFO - ✓ Clicked span: a
+2026-01-29 23:07:27,349 - INFO - Filling Q1 (multiple_choice): tôi không muốn
+2026-01-29 23:07:27,350 - INFO -   Answer: ('random', [{'text': 'Tùy chọn 1', 'percentage': 5
+2026-01-29 23:07:27,350 - INFO - Random Mode - Selected: Tùy chọn 1
+2026-01-29 23:07:27,421 - ERROR - [THREAD 0] Error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=144.0.7559.97)
+Stacktrace:
+0   chromedriver                        0x0000000104d0efd4 cxxbridge1$str$ptr + 3095476
+1   chromedriver                        0x0000000104d073ec cxxbridge1$str$ptr + 3063756
+2   chromedriver                        0x00000001047ea83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001047c3334 chromedriver + 160564
+4   chromedriver                        0x000000010485cc34 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 542968
+5   chromedriver                        0x0000000104872b24 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 632808
+6   chromedriver                        0x000000010482806c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326960
+7   chromedriver                        0x0000000104ccd5dc cxxbridge1$str$ptr + 2826684
+8   chromedriver                        0x0000000104cd0d1c cxxbridge1$str$ptr + 2840828
+9   chromedriver                        0x0000000104cb2bec cxxbridge1$str$ptr + 2717644
+10  chromedriver                        0x0000000104cd15a0 cxxbridge1$str$ptr + 2843008
+11  chromedriver                        0x0000000104ca2cc4 cxxbridge1$str$ptr + 2652324
+12  chromedriver                        0x0000000104cf5a9c cxxbridge1$str$ptr + 2991740
+13  chromedriver                        0x0000000104cf5c18 cxxbridge1$str$ptr + 2992120
+14  chromedriver                        0x0000000104d07044 cxxbridge1$str$ptr + 3062820
+15  libsystem_pthread.dylib             0x000000019c31dc08 _pthread_start + 136
+16  libsystem_pthread.dylib             0x000000019c318ba8 thread_start + 8
+Traceback (most recent call last):
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1551, in _fill_form_for_thread
+    question_elements = driver.find_elements(By.XPATH, "//div[@role='listitem']")
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 833, in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 432, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=144.0.7559.97)
+Stacktrace:
+0   chromedriver                        0x0000000104d0efd4 cxxbridge1$str$ptr + 3095476
+1   chromedriver                        0x0000000104d073ec cxxbridge1$str$ptr + 3063756
+2   chromedriver                        0x00000001047ea83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001047c3334 chromedriver + 160564
+4   chromedriver                        0x000000010485cc34 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 542968
+5   chromedriver                        0x0000000104872b24 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 632808
+6   chromedriver                        0x000000010482806c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326960
+7   chromedriver                        0x0000000104ccd5dc cxxbridge1$str$ptr + 2826684
+8   chromedriver                        0x0000000104cd0d1c cxxbridge1$str$ptr + 2840828
+9   chromedriver                        0x0000000104cb2bec cxxbridge1$str$ptr + 2717644
+10  chromedriver                        0x0000000104cd15a0 cxxbridge1$str$ptr + 2843008
+11  chromedriver                        0x0000000104ca2cc4 cxxbridge1$str$ptr + 2652324
+12  chromedriver                        0x0000000104cf5a9c cxxbridge1$str$ptr + 2991740
+13  chromedriver                        0x0000000104cf5c18 cxxbridge1$str$ptr + 2992120
+14  chromedriver                        0x0000000104d07044 cxxbridge1$str$ptr + 3062820
+15  libsystem_pthread.dylib             0x000000019c31dc08 _pthread_start + 136
+16  libsystem_pthread.dylib             0x000000019c318ba8 thread_start + 8
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1085, in worker_thread
+    self._fill_form_for_thread(driver)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1555, in _fill_form_for_thread
+    question_elements = driver.find_elements(By.CLASS_NAME, "Qr7Oae")
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 833, in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 432, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=144.0.7559.97)
+Stacktrace:
+0   chromedriver                        0x0000000104d0efd4 cxxbridge1$str$ptr + 3095476
+1   chromedriver                        0x0000000104d073ec cxxbridge1$str$ptr + 3063756
+2   chromedriver                        0x00000001047ea83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001047c3334 chromedriver + 160564
+4   chromedriver                        0x000000010485cc34 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 542968
+5   chromedriver                        0x0000000104872b24 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 632808
+6   chromedriver                        0x000000010482806c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326960
+7   chromedriver                        0x0000000104ccd5dc cxxbridge1$str$ptr + 2826684
+8   chromedriver                        0x0000000104cd0d1c cxxbridge1$str$ptr + 2840828
+9   chromedriver                        0x0000000104cb2bec cxxbridge1$str$ptr + 2717644
+10  chromedriver                        0x0000000104cd15a0 cxxbridge1$str$ptr + 2843008
+11  chromedriver                        0x0000000104ca2cc4 cxxbridge1$str$ptr + 2652324
+12  chromedriver                        0x0000000104cf5a9c cxxbridge1$str$ptr + 2991740
+13  chromedriver                        0x0000000104cf5c18 cxxbridge1$str$ptr + 2992120
+14  chromedriver                        0x0000000104d07044 cxxbridge1$str$ptr + 3062820
+15  libsystem_pthread.dylib             0x000000019c31dc08 _pthread_start + 136
+16  libsystem_pthread.dylib             0x000000019c318ba8 thread_start + 8
+
+2026-01-29 23:07:27,425 - INFO - [THREAD 0] Processing response 5/5
+2026-01-29 23:07:27,428 - ERROR - [THREAD 0] Error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=144.0.7559.97)
+Stacktrace:
+0   chromedriver                        0x0000000104d0efd4 cxxbridge1$str$ptr + 3095476
+1   chromedriver                        0x0000000104d073ec cxxbridge1$str$ptr + 3063756
+2   chromedriver                        0x00000001047ea83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001047c3334 chromedriver + 160564
+4   chromedriver                        0x000000010485cc34 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 542968
+5   chromedriver                        0x0000000104872b24 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 632808
+6   chromedriver                        0x000000010482806c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326960
+7   chromedriver                        0x0000000104ccd5dc cxxbridge1$str$ptr + 2826684
+8   chromedriver                        0x0000000104cd0d1c cxxbridge1$str$ptr + 2840828
+9   chromedriver                        0x0000000104cb2bec cxxbridge1$str$ptr + 2717644
+10  chromedriver                        0x0000000104cd15a0 cxxbridge1$str$ptr + 2843008
+11  chromedriver                        0x0000000104ca2cc4 cxxbridge1$str$ptr + 2652324
+12  chromedriver                        0x0000000104cf5a9c cxxbridge1$str$ptr + 2991740
+13  chromedriver                        0x0000000104cf5c18 cxxbridge1$str$ptr + 2992120
+14  chromedriver                        0x0000000104d07044 cxxbridge1$str$ptr + 3062820
+15  libsystem_pthread.dylib             0x000000019c31dc08 _pthread_start + 136
+16  libsystem_pthread.dylib             0x000000019c318ba8 thread_start + 8
+Traceback (most recent call last):
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1081, in worker_thread
+    driver.get(self.form_url)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 452, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 432, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=144.0.7559.97)
+Stacktrace:
+0   chromedriver                        0x0000000104d0efd4 cxxbridge1$str$ptr + 3095476
+1   chromedriver                        0x0000000104d073ec cxxbridge1$str$ptr + 3063756
+2   chromedriver                        0x00000001047ea83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001047c3334 chromedriver + 160564
+4   chromedriver                        0x000000010485cc34 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 542968
+5   chromedriver                        0x0000000104872b24 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 632808
+6   chromedriver                        0x000000010482806c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326960
+7   chromedriver                        0x0000000104ccd5dc cxxbridge1$str$ptr + 2826684
+8   chromedriver                        0x0000000104cd0d1c cxxbridge1$str$ptr + 2840828
+9   chromedriver                        0x0000000104cb2bec cxxbridge1$str$ptr + 2717644
+10  chromedriver                        0x0000000104cd15a0 cxxbridge1$str$ptr + 2843008
+11  chromedriver                        0x0000000104ca2cc4 cxxbridge1$str$ptr + 2652324
+12  chromedriver                        0x0000000104cf5a9c cxxbridge1$str$ptr + 2991740
+13  chromedriver                        0x0000000104cf5c18 cxxbridge1$str$ptr + 2992120
+14  chromedriver                        0x0000000104d07044 cxxbridge1$str$ptr + 3062820
+15  libsystem_pthread.dylib             0x000000019c31dc08 _pthread_start + 136
+16  libsystem_pthread.dylib             0x000000019c318ba8 thread_start + 8
+
+2026-01-29 23:07:27,500 - INFO - ✓ Clicked span: Tùy chọn 1
+2026-01-29 23:07:27,531 - INFO - Thread Thread-3 (worker_thread) completed
+2026-01-29 23:07:28,000 - INFO - 
+Page 1 filled - checking for next page button...
+2026-01-29 23:07:29,018 - INFO - ✓ No more 'Tiếp' buttons found - reached last page
+2026-01-29 23:07:29,018 - INFO - 
+============================================================
+2026-01-29 23:07:29,018 - ERROR - [THREAD 1] Error: name 'filled_real_questions' is not defined
+Traceback (most recent call last):
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1085, in worker_thread
+    self._fill_form_for_thread(driver)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/2apple_mgn_63_ram16/Desktop/Dự Án Code/GGform/gui_app_v3.py", line 1656, in _fill_form_for_thread
+    logger.info(f"✓ Form filling complete - filled {filled_real_questions}/{len(real_question_indices)} questions")
+                                                    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'filled_real_questions' is not defined
+2026-01-29 23:07:29,105 - INFO - Thread Thread-4 (worker_thread) completed
+2026-01-29 23:07:29,105 - INFO - ✓ All 0/5 responses submitted successfully
+2026-01-29 23:07:29,105 - INFO - [WORKER CLEANUP] Closing browser...
+2026-01-29 23:07:29,105 - INFO - [WORKER] ✓ Cleanup complete

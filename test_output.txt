@@ -1,0 +1,42 @@
+======================================================================
+USER'S ACTUAL VIEWFORM TEST
+======================================================================
+URL: https://docs.google.com/forms/d/e/1FAIpQLSc6tIW9LZKDOqZEVAAJkV4I53geEL2f_F_Bq1ygc0DOM35XMw/viewform
+
+Waiting for form to load...
+
+1. INPUT ELEMENTS:
+   Radio buttons: 0
+   Checkboxes: 0
+   Text inputs: 0
+   Textareas: 0
+   TOTAL: 0
+
+2. CONTAINER SELECTORS:
+   @data-item-id: 0
+   role='listitem': 2
+   .Qr7Oae: 2
+   .l8aygf: 0
+
+3. WITH EXPLICIT WAIT (15 sec):
+   Error: module 'selenium.webdriver.support.expected_conditions' has no attribute 'presence_of_any_elements_located'
+
+4. PAGE TEXT CONTENT:
+   ✗ No radio inputs in HTML
+   ✗ No checkbox inputs in HTML
+   ✗ No text inputs in HTML
+
+5. VISIBLE FORM ELEMENTS:
+   Total spans: 36
+   First visible texts:
+     [0] tôi muốn
+     [1] a
+B
+C
+D
+     [2] a
+     [3] B
+     [4] C
+
+======================================================================
+Test complete!

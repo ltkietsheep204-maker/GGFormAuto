@@ -1,0 +1,94 @@
+[
+  {
+    "index": 1,
+    "text": "tôi muốn",
+    "options_count": 4,
+    "options": [
+      {
+        "index": 1,
+        "text": "Mẫu không có tiêu đề"
+      },
+      {
+        "index": 2,
+        "text": "Mẫu không có tiêu đề"
+      },
+      {
+        "index": 3,
+        "text": ""
+      },
+      {
+        "index": 4,
+        "text": "a"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "text": "tôi không muốn",
+    "options_count": 4,
+    "options": [
+      {
+        "index": 1,
+        "text": "B"
+      },
+      {
+        "index": 2,
+        "text": "C"
+      },
+      {
+        "index": 3,
+        "text": "D"
+      },
+      {
+        "index": 4,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "text": "đi chơi không",
+    "options_count": 4,
+    "options": [
+      {
+        "index": 1,
+        "text": ""
+      },
+      {
+        "index": 2,
+        "text": "Tùy chọn 1"
+      },
+      {
+        "index": 3,
+        "text": "Tùy chọn 2"
+      },
+      {
+        "index": 4,
+        "text": "Tùy chọn 3"
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "text": "không đi à",
+    "options_count": 4,
+    "options": [
+      {
+        "index": 1,
+        "text": "Tùy chọn 4"
+      },
+      {
+        "index": 2,
+        "text": ""
+      },
+      {
+        "index": 3,
+        "text": ""
+      },
+      {
+        "index": 4,
+        "text": "Tùy chọn 1"
+      }
+    ]
+  }
+]

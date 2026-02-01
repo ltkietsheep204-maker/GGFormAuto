@@ -1,0 +1,31 @@
+====== WebDriver manager ======
+Get LATEST chromedriver version for google-chrome
+Get LATEST chromedriver version for google-chrome
+Driver [/Users/2apple_mgn_63_ram16/.wdm/drivers/chromedriver/mac64/144.0.7559.109/chromedriver-mac-arm64/chromedriver] found in cache
+Opening form...
+
+Trying different selectors to find questions...
+
+✗ data-item-id: Found 0 elements
+✗ data-item-id-key: Found 0 elements
+✗ HJarJ class: Found 0 elements
+✗ gg-form-question: Found 0 elements
+✗ Xrj4Rb class: Found 0 elements
+✓ listitem role: Found 2 elements
+✗ jsname Wic08d: Found 0 elements
+✗ data-question-id: Found 0 elements
+
+================================================================================
+INSPECTING PAGE STRUCTURE
+================================================================================
+
+Found 0 main divs
+
+
+================================================================================
+LOOKING FOR QUESTION TEXT
+================================================================================
+
+Found text: tôi không muốn
+
+✓ Debug complete
