@@ -71,24 +71,35 @@ class GoogleFormWorker(QThread):
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--disable-blink-features=AutomationControlled")
-            options.add_argument("--headless=new")  # 🔧 Chrome chạy ẩn
+            # options.add_argument("--headless=new")  # 🔧 TẮT headless để debug
             options.add_argument("--disable-gpu")
             options.add_argument("--window-size=1200,900")
+            options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
             
-            # Use webdriver_manager to handle chromedriver automatically
+            # Khởi tạo Chrome - thử system Chrome trước (nhanh nhất)
             try:
                 try:
-                    self.driver = webdriver.Chrome(
-                        service=Service(ChromeDriverManager().install()),
-                        options=options
-                    )
-                except Exception as e1:
-                    logger.warning(f"webdriver_manager failed: {e1}")
-                    # Fallback: Use system Chrome
                     self.driver = webdriver.Chrome(options=options)
+                    logger.info("✓ System Chrome started successfully")
+                except Exception as e1:
+                    logger.warning(f"System Chrome failed: {e1}, trying webdriver_manager...")
+                    try:
+                        driver_path = ChromeDriverManager().install()
+                        # Fix quyền cho macOS
+                        import subprocess
+                        subprocess.run(['chmod', '+x', driver_path], capture_output=True)
+                        subprocess.run(['xattr', '-cr', driver_path], capture_output=True)
+                        self.driver = webdriver.Chrome(
+                            service=Service(driver_path),
+                            options=options
+                        )
+                        logger.info("✓ Chrome started via webdriver_manager")
+                    except Exception as e2:
+                        logger.error(f"webdriver_manager also failed: {e2}")
+                        raise e2
             except Exception as e:
                 logger.error(f"Failed to initialize Chrome: {e}")
-                self.error_signal.emit(f"Không thể khởi động Chrome: {e}")
+                self.error.emit(f"Không thể khởi động Chrome: {e}")
                 return
             
             self.driver.get(form_url)
@@ -167,6 +178,12 @@ class GoogleFormWorker(QThread):
                     
                     logger.info(f"Found {len(all_editable)} .editable divs total")
                     
+                    # Debug: Log page title and URL
+                    page_title = self.driver.title
+                    current_url = self.driver.current_url
+                    logger.info(f"Page title: {page_title}")
+                    logger.info(f"Current URL: {current_url}")
+                    
                     # Store data immediately to avoid stale references
                     editable_data = []
                     for elem in all_editable:
@@ -195,7 +212,17 @@ class GoogleFormWorker(QThread):
                             combined.append(("section", elem, text))
                     
                     if len(combined) == 0:
-                        self.error.emit("❌ Form trống hoặc URL không hợp lệ!")
+                        # Debug: Save page source for inspection
+                        try:
+                            debug_html = self.driver.page_source
+                            with open('/tmp/form_debug.html', 'w', encoding='utf-8') as f:
+                                f.write(debug_html)
+                            logger.error(f"❌ No questions found! Page source saved to /tmp/form_debug.html")
+                            logger.error(f"Page title: {self.driver.title}")
+                            logger.error(f"URL: {self.driver.current_url}")
+                        except:
+                            pass
+                        self.error.emit(f"❌ Form trống hoặc URL không hợp lệ!\n\nDebug info:\nFound {len(all_editable)} editable divs\nPage: {self.driver.title}")
                         return
                     
                     logger.info(f"Processing {len(combined)} items (questions + sections)")
@@ -249,6 +276,22 @@ class GoogleFormWorker(QThread):
                         
                         q_type = self._get_question_type(parent_container)
                         options_list = self._get_options_complete(parent_container)
+                        
+                        # 🆕 FIX: Nếu detect là checkbox/multiple_choice nhưng không có options
+                        # => Đây thực ra là short_answer hoặc long_answer
+                        if q_type in ["checkbox", "multiple_choice"] and len(options_list) == 0:
+                            # Kiểm tra có textarea không (long answer)
+                            try:
+                                textareas = parent_container.find_elements(By.TAG_NAME, "textarea")
+                                if textareas and len(textareas) > 0:
+                                    q_type = "long_answer"
+                                    logger.info(f"  → Corrected to long_answer (no options found)")
+                                else:
+                                    q_type = "short_answer"
+                                    logger.info(f"  → Corrected to short_answer (no options found)")
+                            except:
+                                q_type = "short_answer"
+                                logger.info(f"  → Defaulted to short_answer (no options found)")
                         
                         # Lấy giới hạn max selections nếu là checkbox
                         max_selections = None
@@ -1231,23 +1274,36 @@ class SubmissionWorker(QThread):
         options = webdriver.ChromeOptions()
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--headless=new")  # 🔧 Chrome chạy ẩn
+        options.add_argument("--headless=new")
         options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1200,900")
-        # 🔧 Page load strategy để không đợi full load (giữ Chrome bình thường)
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-popup-blocking")
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-translate")
+        options.add_argument("--lang=en-US")
         options.page_load_strategy = 'eager'
         
         try:
             try:
-                # Try with webdriver_manager first
-                self.driver = webdriver.Chrome(
-                    service=Service(ChromeDriverManager().install()),
-                    options=options
-                )
-            except Exception as e1:
-                logger.warning(f"webdriver_manager failed: {e1}")
-                # Fallback: Use system Chrome
+                # Thử system Chrome trước (nhanh nhất)
                 self.driver = webdriver.Chrome(options=options)
+                logger.info("✓ System Chrome started")
+            except Exception as e1:
+                logger.warning(f"System Chrome failed: {e1}, trying webdriver_manager...")
+                try:
+                    driver_path = ChromeDriverManager().install()
+                    import subprocess
+                    subprocess.run(['chmod', '+x', driver_path], capture_output=True)
+                    subprocess.run(['xattr', '-cr', driver_path], capture_output=True)
+                    self.driver = webdriver.Chrome(
+                        service=Service(driver_path),
+                        options=options
+                    )
+                    logger.info("✓ Chrome started via webdriver_manager")
+                except Exception as e2:
+                    logger.error(f"webdriver_manager also failed: {e2}")
+                    raise e2
         except Exception as e:
             logger.error(f"Failed to initialize Chrome: {e}")
             self.error.emit(f"Không thể khởi động Chrome: {e}")
@@ -1315,29 +1371,40 @@ class SubmissionWorker(QThread):
             self.finished.emit()
             return
         
-        # 🔥 Install chromedriver trước
-        self.progress.emit("⏳ Đang chuẩn bị ChromeDriver...")
-        logger.info("Pre-installing ChromeDriver...")
-        
-        try:
-            driver_path = ChromeDriverManager().install()
-            logger.info(f"✓ ChromeDriver ready: {driver_path}")
-        except Exception as e:
-            logger.error(f"Failed to install ChromeDriver: {e}")
-            driver_path = None
-        
-        # 🔧 Chrome options
+        # � Chrome options
         options = webdriver.ChromeOptions()
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--headless=new")  # 🔧 Chrome chạy ẩn
+        options.add_argument("--headless=new")
         options.add_argument("--disable-gpu")
         options.add_argument("--disable-extensions")
         options.add_argument("--disable-infobars")
         options.add_argument("--disable-popup-blocking")
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-translate")
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
+        options.page_load_strategy = 'eager'
+        
+        # 🔥 Kiểm tra driver: thử system Chrome trước, chỉ dùng webdriver_manager nếu cần
+        self.progress.emit("⏳ Đang chuẩn bị Chrome...")
+        driver_path = None  # None = dùng system Chrome
+        try:
+            test_driver = webdriver.Chrome(options=options)
+            test_driver.quit()
+            logger.info("✓ System Chrome works - using it (fastest)")
+        except Exception as e:
+            logger.warning(f"System Chrome failed: {e}, preparing webdriver_manager...")
+            try:
+                driver_path = ChromeDriverManager().install()
+                import subprocess
+                subprocess.run(['chmod', '+x', driver_path], capture_output=True)
+                subprocess.run(['xattr', '-cr', driver_path], capture_output=True)
+                logger.info(f"✓ ChromeDriver ready: {driver_path}")
+            except Exception as e2:
+                logger.error(f"Failed to install ChromeDriver: {e2}")
+                driver_path = None
         
         # Tính vị trí cửa sổ cho mỗi Chrome
         window_width = 600
@@ -1360,6 +1427,7 @@ class SubmissionWorker(QThread):
                     driver = webdriver.Chrome(service=Service(driver_path), options=options)
                 else:
                     driver = webdriver.Chrome(options=options)
+                driver.set_page_load_timeout(20)
                 
                 # Đặt vị trí cửa sổ
                 x, y = get_window_position(i)

@@ -135,7 +135,20 @@ class GoogleFormWorker(QThread):
         except Exception as e:
             logger.debug(f"Error getting options: {e}")
         return options
-    
+    def _get_options(self, question_element) -> List[Dict]:
+        options = []
+        try:
+            option_elements = question_element.find_elements(By.CLASS_NAME, "YKDB3e")
+            for idx, option in enumerate(option_elements):
+                try:
+                    label = option.find_element(By.CLASS_NAME, "urLvsc")
+                    options.append({
+                        "index": idx,
+                        "text": label.text
+                    })
+        except Exception as e:
+            logger.debug(f"Error getting options: {e}")
+        return options
     count_progress = pyqtSignal(int)
     finished = pyqtSignal()
     error = pyqtSignal(str)
@@ -275,10 +288,19 @@ class GoogleFormWorker(QThread):
                 time.sleep(2)
         
         except Exception as e:
-            logger.warning(f"Error submitting form: {e}")
-            self.progress.emit(f"⚠️ Lỗi gửi form: {str(e)}")
+            logger.warning(f"Error submitting form: {e}")        
+                    self.progress.emit(f"✓ Response {i + 1} đã gửi")
+                    
+                    if i < self.count - 1:
+                        time.sleep(2)
+                
+                except Exception as e:
+                    self.progress.emit(f"⚠️ Lỗi response {i + 1}: {str(e)}")
+            
+            driver.quit()
+            self.finished.emit()
         
-        self.finished.emit()
+        exInfo
         info = QLabel("Sao chép URL từ thanh địa chỉ của Google Form")
         info.setFont(QFont("Arial", 10))
         layout.addWidget(info)
@@ -297,8 +319,14 @@ class GoogleFormWorker(QThread):
         # Progress
         self.load_progress = QTextEdit()
         self.load_progress.setReadOnly(True)
-        self.load_progress.setMaximumHeight(150)
-        layout.addWidget(self.load_progress)
+        self.load_progress.setMaximumHeight(150
+        super().__init__()
+        self.form_url = ""
+        self.questions = []
+        self.answers = {}
+        self.worker = None
+        
+        self.initUI()
     
     def initUI(self):
         """Khởi tạo giao diện"""
